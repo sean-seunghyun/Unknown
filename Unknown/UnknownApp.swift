@@ -11,7 +11,11 @@ import SwiftUI
 struct UnknownApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView{
+                HomeView()
+                    
+            }
+            .environmentObject(HomeViewModel.instance)
         }
     }
 }
