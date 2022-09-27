@@ -33,6 +33,15 @@
 		14E1BB0528DDB0620029AE57 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB0428DDB0620029AE57 /* TabItemView.swift */; };
 		14E1BB0A28DDB42E0029AE57 /* ENV.plist in Resources */ = {isa = PBXBuildFile; fileRef = 14E1BB0928DDB42E0029AE57 /* ENV.plist */; };
 		14E1BB0C28DDB48C0029AE57 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB0B28DDB48C0029AE57 /* Bundle.swift */; };
+		14E1BB1128E286DF0029AE57 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB1028E286DF0029AE57 /* DetailView.swift */; };
+		14E1BB1328E287370029AE57 /* MovieBackdropDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB1228E287370029AE57 /* MovieBackdropDataService.swift */; };
+		14E1BB1528E288100029AE57 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB1428E288100029AE57 /* DetailViewModel.swift */; };
+		14E1BB1C28E2887A0029AE57 /* BackdropViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB1B28E2887A0029AE57 /* BackdropViewModel.swift */; };
+		14E1BB1E28E2888A0029AE57 /* BackdropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB1D28E2888A0029AE57 /* BackdropView.swift */; };
+		14E1BB2228E2B1CF0029AE57 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB2128E2B1CF0029AE57 /* MovieDetail.swift */; };
+		14E1BB2428E2B2620029AE57 /* MovieDetailDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB2328E2B2620029AE57 /* MovieDetailDataService.swift */; };
+		14E1BB2628E3322D0029AE57 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB2528E3322D0029AE57 /* Double.swift */; };
+		14E1BB2828E33D740029AE57 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB2728E33D740029AE57 /* UIScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +72,15 @@
 		14E1BB0428DDB0620029AE57 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		14E1BB0928DDB42E0029AE57 /* ENV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ENV.plist; sourceTree = "<group>"; };
 		14E1BB0B28DDB48C0029AE57 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		14E1BB1028E286DF0029AE57 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		14E1BB1228E287370029AE57 /* MovieBackdropDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieBackdropDataService.swift; sourceTree = "<group>"; };
+		14E1BB1428E288100029AE57 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		14E1BB1B28E2887A0029AE57 /* BackdropViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropViewModel.swift; sourceTree = "<group>"; };
+		14E1BB1D28E2888A0029AE57 /* BackdropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackdropView.swift; sourceTree = "<group>"; };
+		14E1BB2128E2B1CF0029AE57 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		14E1BB2328E2B2620029AE57 /* MovieDetailDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailDataService.swift; sourceTree = "<group>"; };
+		14E1BB2528E3322D0029AE57 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		14E1BB2728E33D740029AE57 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +142,8 @@
 				14E1BAD128DD55F80029AE57 /* View.swift */,
 				14E1BAE828DD79B30029AE57 /* PreviewProvider.swift */,
 				14E1BB0B28DDB48C0029AE57 /* Bundle.swift */,
+				14E1BB2528E3322D0029AE57 /* Double.swift */,
+				14E1BB2728E33D740029AE57 /* UIScreen.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -131,6 +151,7 @@
 		14E1BAD328DD5B040029AE57 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				14E1BB0D28E285000029AE57 /* Detail */,
 				14E1BADB28DD765B0029AE57 /* Components */,
 				14E1BAD428DD5B090029AE57 /* Home */,
 			);
@@ -165,6 +186,7 @@
 		14E1BADB28DD765B0029AE57 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				14E1BB1628E288520029AE57 /* Backdrop */,
 				14E1BADC28DD76670029AE57 /* Poster */,
 				14E1BB0428DDB0620029AE57 /* TabItemView.swift */,
 			);
@@ -204,6 +226,7 @@
 				14E1BAFA28DD9BB00029AE57 /* UpcomingMovies.swift */,
 				14E1BAFC28DDA6180029AE57 /* PopularMovies.swift */,
 				14E1BB0228DDAD6C0029AE57 /* TopRatedMovies.swift */,
+				14E1BB2128E2B1CF0029AE57 /* MovieDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,6 +239,8 @@
 				14E1BAF828DD9B580029AE57 /* UpcomingMoviesDataService.swift */,
 				14E1BAFE28DDA6A60029AE57 /* PopularMoviesDataService.swift */,
 				14E1BB0028DDAD5E0029AE57 /* TopRatedMoviesDataService.swift */,
+				14E1BB1228E287370029AE57 /* MovieBackdropDataService.swift */,
+				14E1BB2328E2B2620029AE57 /* MovieDetailDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -227,6 +252,56 @@
 				14E1BAF028DD7C570029AE57 /* LocalFileManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		14E1BB0D28E285000029AE57 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB0F28E2850C0029AE57 /* ViewModels */,
+				14E1BB0E28E285060029AE57 /* Views */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		14E1BB0E28E285060029AE57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB1028E286DF0029AE57 /* DetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		14E1BB0F28E2850C0029AE57 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB1428E288100029AE57 /* DetailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		14E1BB1628E288520029AE57 /* Backdrop */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB1828E288630029AE57 /* Views */,
+				14E1BB1728E2885E0029AE57 /* ViewModels */,
+			);
+			path = Backdrop;
+			sourceTree = "<group>";
+		};
+		14E1BB1728E2885E0029AE57 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB1B28E2887A0029AE57 /* BackdropViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		14E1BB1828E288630029AE57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB1D28E2888A0029AE57 /* BackdropView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,27 +376,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				14E1BAFF28DDA6A60029AE57 /* PopularMoviesDataService.swift in Sources */,
+				14E1BB2428E2B2620029AE57 /* MovieDetailDataService.swift in Sources */,
+				14E1BB1128E286DF0029AE57 /* DetailView.swift in Sources */,
 				14E1BAD228DD55F80029AE57 /* View.swift in Sources */,
 				14E1BB0128DDAD5E0029AE57 /* TopRatedMoviesDataService.swift in Sources */,
 				14E1BAF728DD8A740029AE57 /* NowPlayingMoviesDataService.swift in Sources */,
 				14E1BAEF28DD7C0A0029AE57 /* MoviePosterDataService.swift in Sources */,
+				14E1BB2828E33D740029AE57 /* UIScreen.swift in Sources */,
+				14E1BB2628E3322D0029AE57 /* Double.swift in Sources */,
 				14E1BB0528DDB0620029AE57 /* TabItemView.swift in Sources */,
 				14E1BAC328DD4A520029AE57 /* ContentView.swift in Sources */,
 				14E1BAF528DD8A3F0029AE57 /* NowPlayingMovies.swift in Sources */,
+				14E1BB1528E288100029AE57 /* DetailViewModel.swift in Sources */,
 				14E1BAC128DD4A520029AE57 /* UnknownApp.swift in Sources */,
 				14E1BAED28DD7BE10029AE57 /* NetworkingManager.swift in Sources */,
+				14E1BB2228E2B1CF0029AE57 /* MovieDetail.swift in Sources */,
 				14E1BADA28DD5B370029AE57 /* HomeView.swift in Sources */,
 				14E1BAD028DD4CA30029AE57 /* Color.swift in Sources */,
+				14E1BB1328E287370029AE57 /* MovieBackdropDataService.swift in Sources */,
 				14E1BB0C28DDB48C0029AE57 /* Bundle.swift in Sources */,
 				14E1BB0328DDAD6C0029AE57 /* TopRatedMovies.swift in Sources */,
 				14E1BAE228DD76BA0029AE57 /* PosterView.swift in Sources */,
 				14E1BAF928DD9B580029AE57 /* UpcomingMoviesDataService.swift in Sources */,
+				14E1BB1C28E2887A0029AE57 /* BackdropViewModel.swift in Sources */,
 				14E1BAFB28DD9BB00029AE57 /* UpcomingMovies.swift in Sources */,
 				14E1BAF328DD80FE0029AE57 /* HomeViewModel.swift in Sources */,
 				14E1BAE728DD78EC0029AE57 /* Movie.swift in Sources */,
 				14E1BAFD28DDA6180029AE57 /* PopularMovies.swift in Sources */,
 				14E1BAE928DD79B30029AE57 /* PreviewProvider.swift in Sources */,
 				14E1BAE428DD78740029AE57 /* PosterViewModel.swift in Sources */,
+				14E1BB1E28E2888A0029AE57 /* BackdropView.swift in Sources */,
 				14E1BAF128DD7C570029AE57 /* LocalFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

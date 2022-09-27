@@ -10,14 +10,6 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var vm: HomeViewModel
-    @State var selectedTab:Int = 0
-    
-    
-    let columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
     
     var body: some View {
         ZStack{
@@ -27,51 +19,22 @@ struct HomeView: View {
             ScrollView{
                 VStack(alignment: .leading){
                     
-                    // header title
-                    Text("What do you want to watch?")
-                        .foregroundColor(Color.theme.white)
-                        .bold()
-                        .font(.title2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    
+                   
+                    headerTitle
+                        .padding(.horizontal)
                     // search bar
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(Color.theme.darkGray)
-                        .frame(height: 50)
-                    
-                    
-                    // trending
+                        .padding(.horizontal)
+                        .frame(height: 40)
+            
                     trendingMovies
+                    tabItemTitles
                     
-                    // sorting title
-                    HStack(spacing: 0){
-                        TabItemView(title: "Popular", isSelected: true)
-                        TabItemView(title: "Upcoming", isSelected: false)
-                        TabItemView(title: "Top Rated", isSelected: false)
-                    }
-                    
-                    // Sorted Lists
-                    LazyVGrid( columns: columns,
-                               alignment: .center,
-                               spacing: 20,
-                               pinnedViews: []){
-                        
-                        
-//                                                ForEach(vm.upcomingMovies) { movie in
-//                                                    PosterView(movie: movie)
-//                                                        .frame(width: 110, height: 150)
-//                                                }
-//
-                        
-                        ForEach(vm.topRatedMovies) { movie in
-                            PosterView(movie: movie)
-                                .frame(width: 110, height: 150)
-                        }
-                        
-                    }
-                    .padding(.horizontal)
+                    tabItems()
+                        .padding(.horizontal)
                 }
+                
                 
                 
             }
@@ -88,9 +51,21 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
             .environmentObject(dev.homeVM)
     }
+    
 }
 
 extension HomeView{
+    
+    private var headerTitle: some View{
+       
+        Text("What do you want to watch?")
+            .foregroundColor(Color.theme.white)
+            .bold()
+            .font(.title2)
+//            .frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
     private var trendingMovies: some View{
         ScrollView(.horizontal, showsIndicators: false) {
             
@@ -107,4 +82,58 @@ extension HomeView{
             
         }
     }
+    
+    private var tabItemTitles: some View{
+        HStack(spacing: 0){
+            
+            ForEach(vm.tabs, id: \.self) { tab in
+                TabItemView(title: tab.rawValue, isSelected: vm.selectedTab == tab ? true : false)
+                    .onTapGesture {
+                        withAnimation(.easeOut) {
+                            vm.selectedTab = tab
+                        }
+                        
+                    }
+            }
+            
+        }
+    }
+    
+    private func tabItems() -> some View{
+        
+           let columns: [GridItem] = [
+               GridItem(.flexible()),
+               GridItem(.flexible()),
+               GridItem(.flexible())
+           ]
+        
+        
+        return LazyVGrid( columns: columns,
+                   alignment: .center,
+                   spacing: 20,
+                   pinnedViews: []){
+            
+            switch vm.selectedTab{
+            case .popular:
+                ForEach(vm.popularMovies) { movie in
+                    PosterView(movie: movie)
+                        .frame(width: 110, height: 150)
+                }
+            case .upcoming:
+                ForEach(vm.upcomingMovies) { movie in
+                    PosterView(movie: movie)
+                        .frame(width: 110, height: 150)
+                }
+            case .topRated:
+                ForEach(vm.topRatedMovies) { movie in
+                    PosterView(movie: movie)
+                        .frame(width: 110, height: 150)
+                }
+                
+            }
+            
+            
+        }
+    }
+
 }

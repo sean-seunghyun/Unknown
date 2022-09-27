@@ -9,10 +9,21 @@ import Foundation
 import Combine
 
 class HomeViewModel: ObservableObject{
+    enum Tab: String{
+        case popular = "Popular"
+        case upcoming = "Upcoming"
+        case topRated = "Top Rated"
+    }
+    
+    @Published var selectedTab:Tab = .popular
+    let tabs:[Tab] = [.popular, .upcoming, .topRated]
+
+    
     @Published var trendingMovies:[Movie] = []
     @Published var upcomingMovies:[Movie] = []
     @Published var popularMovies:[Movie] = []
     @Published var topRatedMovies:[Movie] = []
+    
     let nowPlayingMoviesDataService = NowPlayingMoviesDataService.instance
     let upcomingMoviesDataService = UpcomingMoviesDataService.instance
     let popularMoviesDataService = PopularMoviesDataService.instance
