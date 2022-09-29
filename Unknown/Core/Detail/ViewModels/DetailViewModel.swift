@@ -17,11 +17,11 @@ class DetailViewModel:ObservableObject{
     enum Tab: String{
         case aboutMovies = "About Movies"
         case reviews = "Reviews"
-        case cost = "Cost"
+        case revenue = "Revenue"
     }
     
     @Published var selectedTab:Tab = .aboutMovies
-    let tabs:[Tab] = [.aboutMovies, .reviews, .cost]
+    let tabs:[Tab] = [.aboutMovies, .reviews, .revenue]
     
     init(movie: Movie){
         self.movie = movie

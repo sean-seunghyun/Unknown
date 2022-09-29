@@ -27,7 +27,7 @@ class NowPlayingMoviesDataService{
         
         nowPlayingMoviesSubscription =
         NetworkingManager.download(for: url)
-            .decode(type: NowPlayingMovies.self, decoder: JSONDecoder())
+            .decode(type: MovieList.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] nowPlayingMovies in
                 self?.nowPlayingMovies = nowPlayingMovies.results

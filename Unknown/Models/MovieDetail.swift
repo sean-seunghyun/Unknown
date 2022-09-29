@@ -122,11 +122,6 @@ struct MovieDetail: Codable, Identifiable {
     }
 }
 
-// MARK: - Genre
-struct Genre: Codable, Identifiable {
-    let id: Int
-    let name: String
-}
 
 // MARK: - ProductionCompany
 struct ProductionCompany: Codable {

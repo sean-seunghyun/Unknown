@@ -26,7 +26,7 @@ struct DeveloperPreview{
     let movie = Movie(adult: false,
                       backdropPath: "/aCaqCvYn48b3lfGKGnUdVAE1yeB.jpg",
                       id: 814800,
-                      title: "Goodnight Mommy",
+                      title: "Mommy",
                       originalLanguage: "en",
                       originalTitle: "Goodnight Mommy",
                       overview: "When twin brothers arrive home to find their mother’s demeanor altered and face covered in surgical bandages, they begin to suspect the woman beneath the gauze might not be their mother.",
@@ -42,5 +42,7 @@ struct DeveloperPreview{
                       voteAverage: 5.963, voteCount: 67)
     
     let homeVM = HomeViewModel.instance
+    
+    let serachVM = SearchViewModel.instance
     
 }

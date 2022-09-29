@@ -26,7 +26,7 @@ class TopRatedMoviesDataService{
         
         topRatedMoviesSubscription =
         NetworkingManager.download(for: url)
-            .decode(type: TopRatedMovies.self, decoder: JSONDecoder())
+            .decode(type: MovieList.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] topRatedMovies in
                 self?.topRatedMovies = topRatedMovies.results

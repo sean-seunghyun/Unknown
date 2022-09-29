@@ -20,7 +20,7 @@ struct PosterView: View {
         if let poster = vm.poster{
             Image(uiImage: poster)
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
                 .clipShape(RoundedRectangle(cornerRadius: 20))
         }else{
             ProgressView()

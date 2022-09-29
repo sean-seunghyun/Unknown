@@ -27,7 +27,7 @@ class PopularMoviesDataService{
         
         popularMoviesSubscription =
         NetworkingManager.download(for: url)
-            .decode(type: PopularMovies.self, decoder: JSONDecoder())
+            .decode(type: MovieList.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] popularMovies in
                 self?.popularMovies = popularMovies.results

@@ -9,6 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State var selectedMovie: Movie? = nil
+    @State var showDetail: Bool = false
+    @State var textFieldText: String = ""
+    
     @EnvironmentObject var vm: HomeViewModel
     
     var body: some View {
@@ -22,26 +26,31 @@ struct HomeView: View {
                    
                     headerTitle
                         .padding(.horizontal)
-                    // search bar
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(Color.theme.darkGray)
-                        .padding(.horizontal)
-                        .frame(height: 40)
-            
+                        .padding(.bottom, 20)
+                    
+//                    SearchBarView(vm: <#SearchViewModel#>, textFieldText: $textFieldText)
+//                        .padding(.horizontal, 10)
+                    
                     trendingMovies
                     tabItemTitles
+                        .padding(.bottom, 15)
                     
                     tabItems()
                         .padding(.horizontal)
                 }
                 
-                
-                
             }
             
         }
-        .navigationBarHidden(true)
-        
+        .background(
+            NavigationLink(isActive: $showDetail) {
+                if let selectedMovie = selectedMovie {
+                    DetailView(movie: selectedMovie)
+                }
+            } label: {
+                EmptyView()
+            }
+        )
         
     }
 }
@@ -54,6 +63,17 @@ struct HomeView_Previews: PreviewProvider {
     
 }
 
+// MARK: - FUNCTIONS
+
+extension HomeView{
+    func segue(movie: Movie){
+        self.selectedMovie = movie
+        self.showDetail = true
+    }
+}
+
+// MARK: - COMPONENTS
+
 extension HomeView{
     
     private var headerTitle: some View{
@@ -62,22 +82,32 @@ extension HomeView{
             .foregroundColor(Color.theme.white)
             .bold()
             .font(.title2)
-//            .frame(maxWidth: .infinity, alignment: .leading)
-        
     }
     
     private var trendingMovies: some View{
         ScrollView(.horizontal, showsIndicators: false) {
             
-            HStack{
-                
-                ForEach(vm.trendingMovies) { movie in
-                    PosterView(movie: movie)
-                        .frame(width: 160, height: 230)
+            HStack(alignment: .top, spacing: 10){
+
+                ForEach(Array(vm.trendingMovies.enumerated()), id: \.offset) { index, movie in
+                    
+             
+                        PosterView(movie: movie)
+                            .frame(width: 160, height: 230)
+                            .overlay(
+                                RankNumberView(number: index+1)
+                                    .position(x: 20, y: 220)
+                                )
+    
+                            .onTapGesture {
+                                segue(movie: movie)
+                            }
+                        
                 }
                 
                 
             }
+            .frame(height: 300)
             .padding(.leading)
             
         }

@@ -1,13 +1,12 @@
 //
-//  TopRatedMovies.swift
+//  MovieList.swift
 //  Unknown
 //
 //  Created by sean on 2022/09/23.
 //
 
 import Foundation
-
-struct TopRatedMovies: Codable, Identifiable {
+struct MovieList: Codable, Identifiable {
     let id: String = UUID().uuidString
     let page: Int
     let results: [Movie]

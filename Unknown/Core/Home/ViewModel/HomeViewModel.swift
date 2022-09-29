@@ -23,12 +23,19 @@ class HomeViewModel: ObservableObject{
     @Published var upcomingMovies:[Movie] = []
     @Published var popularMovies:[Movie] = []
     @Published var topRatedMovies:[Movie] = []
+
     
     let nowPlayingMoviesDataService = NowPlayingMoviesDataService.instance
     let upcomingMoviesDataService = UpcomingMoviesDataService.instance
     let popularMoviesDataService = PopularMoviesDataService.instance
     let topRatedMoviesDataService = TopRatedMoviesDataService.instance
     
+//    @Published var searchText: String = ""
+    
+//    let movieSearchDataService = MovieSearchDataService.instance
+//    @Published var searchedMovies: [Movie] = []
+//    @Published var searchedMovieList: MovieList? = nil
+//
     var cancellables = Set<AnyCancellable>()
     
     static let instance = HomeViewModel()
@@ -61,5 +68,25 @@ class HomeViewModel: ObservableObject{
                 self?.topRatedMovies = topRatedMovies
             }
             .store(in: &cancellables)
+        
+   
     }
+    
+//    func searchMovie(key: String, page: Int = 1){
+//        movieSearchDataService.searchMovie(key: key, page: page)
+//    }
+//    
+//    func searchMovieIfPossible(){
+//        guard
+//            let searchedMovieList = searchedMovieList        else {
+//            return
+//        }
+//        
+//        let currentPage = searchedMovieList.page
+//        let totalPage = searchedMovieList.totalPages
+//        if currentPage < totalPage {
+//            movieSearchDataService.searchMovie(key: searchText, page: currentPage+1)
+//        }
+//        
+//    }
 }

@@ -18,5 +18,5 @@ struct Theme{
     let white = Color("whiteColor")
     let darkGray = Color("darkGray")
     let gray = Color("gray")
-    
+    let orange = Color("orangeColor")
 }

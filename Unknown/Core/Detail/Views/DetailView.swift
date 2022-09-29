@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+
+
 struct DetailView: View {
     
-    let movie: Movie
-    @StateObject var vm: DetailViewModel
+    private let movie: Movie
+    @StateObject private var vm: DetailViewModel
     
     init(movie: Movie){
         self.movie = movie
@@ -20,108 +22,27 @@ struct DetailView: View {
     
     
     var body: some View {
+        
         ZStack {
             Color.theme.background
                 .ignoresSafeArea()
             
-            
-            
             ScrollView {
                 VStack{
-                    BackdropView(movie: movie)
-                        .frame(width: UIScreen.main.bounds.width, height: 250)
-                        .overlay(
-                            Capsule(style: .continuous)
-                                .frame(width: 80, height: 30)                   .foregroundColor(Color.black.opacity(0.4))
-                                .addBorder(Color.orange, cornerRadius: 15)
-                                .overlay(
-                                    HStack{
-                                        Image(systemName: "star")
-                                        Text(vm.movieDetail?.voteAverage.asNumberString() ?? "")
-                                        
-                                    }
-                                        .font(.subheadline)
-                                        .foregroundColor(Color.orange)
-                                )
-                            
-                            ,alignment: .bottomTrailing
-                        )
+                    backdrop
+                    posterAndTitle
                     
+                    movieBriefInfo
                     
-                    HStack(alignment: .bottom, spacing: 0) {
-                        PosterView(movie: movie)
-                            .frame(width: 110, height: 150)
-                        
-                        Text(movie.title)
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color.theme.white)
-                            .padding(.bottom, 20)
-                    }
-                    
-                    .offset(y: -100)
-                    .padding(.bottom, -100)
-                    
-                    
-                    HStack(spacing: 20){
-                        HStack {
-                            Image(systemName: "calendar")
-                            Text(movie.releaseDate.prefix(4))
-                        }
-                        Text("|")
-                        HStack{
-                            Image(systemName: "clock")
-                            Text("\(vm.movieDetail?.runtime ?? 0)")
-                        }
-                        Text("|")
-                        HStack{
-                            Image(systemName: "ticket")
-                            
-                            if let movieDetail = vm.movieDetail,
-                               let genre = movieDetail.genres.first{
-                                Text(genre.name)
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                    .padding(.vertical, 20)
-                    .font(.headline)
-                    .foregroundColor(Color.theme.gray)
-                    
-                    HStack {
-                        ForEach(vm.tabs, id: \.self) { tab in
-                            TabItemView(title: tab.rawValue, isSelected: vm.selectedTab == tab ? true : false)
-                                .onTapGesture {
-                                    withAnimation(.easeOut) {
-                                        vm.selectedTab = tab
-                                    }
-                                    
-                                }
-                        }
-                       
-                    }
-//                    .padding(.horizontal)
-                    
-                    
-                    
-                    ZStack {
-                        Text(vm.movieDetail?.overview ?? "")
-                            .foregroundColor(Color.theme.white)
-                    }
-                    .padding()
-                    
-                    
+                    movieTabItems
+                    movieTabContents
                     
                 }
                 .frame(maxWidth: UIScreen.screenWidth)
             }
             
-            
         }
-        
-        
+        .navigationBarTitleDisplayMode(.inline)
     }
     
 }
@@ -131,3 +52,154 @@ struct DetailView_Previews: PreviewProvider {
         DetailView(movie: dev.movie)
     }
 }
+
+
+extension DetailView{
+    
+    private var backdrop: some View{
+        BackdropView(movie: movie)
+            .frame(width: UIScreen.main.bounds.width, height: 250)
+            .overlay(
+                movieRating
+                    .padding()
+                ,alignment: .bottomTrailing
+            )
+    }
+    
+    private var movieRating: some View{
+        Capsule(style: .continuous)
+            .frame(width: 80, height: 30)                   .foregroundColor(Color.black.opacity(0.4))
+            .addBorder(Color.orange, cornerRadius: 15)
+            .overlay(
+                HStack{
+                    Image(systemName: "star")
+                    Text(vm.movieDetail?.voteAverage.asNumberString() ?? "")
+                    
+                }
+                    .font(.subheadline)
+                    .foregroundColor(Color.orange)
+            )
+    }
+    
+    
+    private var posterAndTitle: some View{
+        HStack(alignment: .bottom, spacing: 0) {
+            PosterView(movie: movie)
+                .frame(width: 110, height: 150)
+            Spacer()
+            Text(movie.title)
+                .fontWeight(.semibold)
+                .font(.title)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .foregroundColor(Color.theme.white)
+                .padding(.bottom, 20)
+        }
+        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity)
+        .offset(y: -100)
+        .padding(.bottom, -100)
+    }
+    
+    private var movieBriefInfo: some View{
+        HStack(spacing: 20){
+            HStack {
+                Image(systemName: "calendar")
+                Text(movie.releaseDate.prefix(4))
+            }
+            Text("|")
+            HStack{
+                Image(systemName: "clock")
+                Text("\(vm.movieDetail?.runtime ?? 0)")
+            }
+            Text("|")
+            HStack{
+                Image(systemName: "ticket")
+                
+                if let movieDetail = vm.movieDetail,
+                   let genre = movieDetail.genres.first{
+                    Text(genre.name)
+                }
+                
+            }
+            
+        }
+        .padding(.vertical, 20)
+        .font(.headline)
+        .foregroundColor(Color.theme.gray)
+        
+    }
+    
+    private var movieTabItems: some View{
+        HStack {
+            ForEach(vm.tabs, id: \.self) { tab in
+                TabItemView(title: tab.rawValue, isSelected: vm.selectedTab == tab ? true : false)
+                    .onTapGesture {
+                        withAnimation(.easeOut) {
+                            vm.selectedTab = tab
+                        }
+                        
+                    }
+            }
+            
+        }
+    }
+    
+    private var movieTabContents: some View{
+        
+        ZStack{
+            switch vm.selectedTab{
+                
+            case .aboutMovies:
+                Text(vm.movieDetail?.overview ?? "")
+            case .reviews:
+                VStack(spacing: 20){
+                    HStack {
+                        Text("Rating")
+                        Spacer()
+                        Text(vm.movieDetail?.voteAverage.asNumberString() ?? "")
+                            .bold()
+                    }
+                    Divider()
+                    HStack {
+                        Text("Voting count")
+                        Spacer()
+                        Text(String(vm.movieDetail?.voteCount ?? 0))
+                            .bold()
+                    }
+                    Divider()
+                    HStack {
+                        Text("Popularity")
+                        Spacer()
+                        Text(vm.movieDetail?.popularity.asNumberString() ?? "")
+                            .bold()
+                    }
+                }
+                
+            case .revenue:
+                HStack {
+                    Text("Total Revenue")
+                    Spacer()
+                    
+                    if let revenue = vm.movieDetail?.revenue{
+                        if revenue != 0{
+                            Text("$ \(revenue)")
+                        }else{
+                            Text("N/A")
+                                .bold()
+                        }
+                    }
+                    
+                }
+            }
+        }
+        .padding()
+        .foregroundColor(Color.theme.white)
+        
+    }
+    
+    
+    
+}
+
+

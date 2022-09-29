@@ -28,7 +28,7 @@ class UpcomingMoviesDataService{
         
         upcomingMoviesSubscription =
         NetworkingManager.download(for: url)
-            .decode(type: UpcomingMovies.self, decoder: JSONDecoder())
+            .decode(type: MovieList.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] upcomingMovies in
                 
