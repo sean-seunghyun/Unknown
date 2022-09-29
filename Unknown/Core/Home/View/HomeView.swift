@@ -92,7 +92,7 @@ extension HomeView{
                 ForEach(Array(vm.trendingMovies.enumerated()), id: \.offset) { index, movie in
                     
              
-                        PosterView(movie: movie)
+                    PosterView(movie: movie, posterStorage: .localFileManager)
                             .frame(width: 160, height: 230)
                             .overlay(
                                 RankNumberView(number: index+1)
@@ -146,17 +146,17 @@ extension HomeView{
             switch vm.selectedTab{
             case .popular:
                 ForEach(vm.popularMovies) { movie in
-                    PosterView(movie: movie)
+                    PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
                 }
             case .upcoming:
                 ForEach(vm.upcomingMovies) { movie in
-                    PosterView(movie: movie)
+                    PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
                 }
             case .topRated:
                 ForEach(vm.topRatedMovies) { movie in
-                    PosterView(movie: movie)
+                    PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
                 }
                 

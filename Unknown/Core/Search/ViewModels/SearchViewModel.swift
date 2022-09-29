@@ -42,17 +42,12 @@ class SearchViewModel: ObservableObject{
     }
     
     func searchMovieIfPossible(){
-        
-        if previouslySearchedKey != searchText { return }
-        
         guard
             let searchedMovieList = searchedMovieList else { return }
-        
         let currentPage = searchedMovieList.page
         let totalPage = searchedMovieList.totalPages
         if currentPage < totalPage {
-            movieSearchDataService.searchMovie(key: searchText, page: currentPage+1)
+            movieSearchDataService.searchMovie(key: previouslySearchedKey, page: currentPage + 1)
         }
-        
     }
 }

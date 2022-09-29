@@ -12,7 +12,7 @@ struct SearchedMovieRow: View {
     let genreFinder = GenreFinder.instance
     var body: some View {
         HStack{
-            PosterView(movie: movie)
+            PosterView(movie: movie, posterStorage: .cache)
                 .frame(width: 100, height: 130)
                 .clipped()
                 .padding(.trailing, 10)
@@ -35,11 +35,8 @@ struct SearchedMovieRow: View {
 
 struct SearchedMovieRow_Previews: PreviewProvider {
     static var previews: some View {
-     
-            
             SearchedMovieRow(movie: dev.movie)
                 .previewLayout(.sizeThatFits)
-    
     }
 }
 
@@ -66,7 +63,7 @@ extension SearchedMovieRow{
         HStack {
             Image(systemName: "ticket")
                 .frame(width: 20)
-            Text(genreFinder.getGenreName(id: movie.genreIDS.first ?? 0) ?? "")
+            Text(genreFinder.getGenreName(id: movie.genreIDS.first ?? 0) ?? "n/a")
             
         }
         .font(.subheadline)
@@ -77,8 +74,14 @@ extension SearchedMovieRow{
         HStack {
             Image(systemName: "calendar")
                 .frame(width: 20)
-            Text(movie.releaseDate.prefix(4))
             
+            if let releaseDate = movie.releaseDate,
+               releaseDate != ""
+            {
+                Text(releaseDate.prefix(4))
+            }else{
+                Text("n/a")
+            }
             
         }
         .font(.subheadline)

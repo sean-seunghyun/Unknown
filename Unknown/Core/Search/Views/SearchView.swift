@@ -70,8 +70,6 @@ struct SearchView_Previews: PreviewProvider {
 extension SearchView{
     func onScrolledAtBottom(){
         print("fetchNextPageIfPossible")
-        
-        
         vm.searchMovieIfPossible()
         
     }

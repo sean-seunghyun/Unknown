@@ -9,11 +9,13 @@ import SwiftUI
 
 struct PosterView: View {
     private let movie:Movie
+    private let posterStorage: PosterStorage
     @StateObject private var vm:PosterViewModel
     
-    init(movie: Movie){
+    init(movie: Movie, posterStorage: PosterStorage){
         self.movie = movie
-        _vm = StateObject(wrappedValue: PosterViewModel(movie: movie))
+        self.posterStorage = posterStorage
+        _vm = StateObject(wrappedValue: PosterViewModel(movie: movie, posterStorage: posterStorage))
     }
     
     var body: some View {
@@ -31,7 +33,7 @@ struct PosterView: View {
 
 struct PosterView_Previews: PreviewProvider {
     static var previews: some View {
-        PosterView(movie: dev.movie)
+        PosterView(movie: dev.movie, posterStorage: .localFileManager)
             .previewLayout(.sizeThatFits)
     }
 }

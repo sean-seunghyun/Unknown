@@ -84,7 +84,7 @@ extension DetailView{
     
     private var posterAndTitle: some View{
         HStack(alignment: .bottom, spacing: 0) {
-            PosterView(movie: movie)
+            PosterView(movie: movie, posterStorage: .localFileManager)
                 .frame(width: 110, height: 150)
             Spacer()
             Text(movie.title)
@@ -105,7 +105,13 @@ extension DetailView{
         HStack(spacing: 20){
             HStack {
                 Image(systemName: "calendar")
-                Text(movie.releaseDate.prefix(4))
+                if let releaseDate = movie.releaseDate,
+                   releaseDate != ""
+                {
+                    Text(releaseDate.prefix(4))
+                }else{
+                    Text("n/a")
+                }
             }
             Text("|")
             HStack{
@@ -119,6 +125,8 @@ extension DetailView{
                 if let movieDetail = vm.movieDetail,
                    let genre = movieDetail.genres.first{
                     Text(genre.name)
+                }else{
+                    Text("n/a")
                 }
                 
             }

@@ -20,7 +20,7 @@ class BackdropViewModel: ObservableObject{
     init(movie: Movie){
         self.movie = movie
         backdropDataService = MovieBackdropDataService(movie: movie)
-        posterDataService = MoviePosterDataService(movie: movie)
+        posterDataService = MoviePosterDataService(movie: movie, posterStorage: .localFileManager)
         addSubscribers()
     }
     

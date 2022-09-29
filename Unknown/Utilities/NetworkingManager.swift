@@ -50,7 +50,7 @@ class NetworkingManager{
         case .finished:
              break
         case .failure(let error) :
-            print("error downloading data: \(error.localizedDescription)")
+            print("error downloading data: \(error)")
         }
     }
 }

@@ -45,7 +45,7 @@ struct Movie: Codable, Identifiable, Equatable {
     let mediaType: String?
     let genreIDS: [Int]
     let popularity: Double
-    let releaseDate: String
+    let releaseDate: String?
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
