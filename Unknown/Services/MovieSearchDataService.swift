@@ -20,9 +20,14 @@ class MovieSearchDataService{
     }
     
     func searchMovie(key: String, page: Int){
-        guard let url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=\(Bundle.main.apiKey)&language=ko-KR&query=\(key)&page=\(page)&include_adult=false") else { return }
+        let urlString = "https://api.themoviedb.org/3/search/movie?api_key=\(Bundle.main.apiKey)&language=ko-KR&query=\(key)&page=\(page)&include_adult=false"
         
         
+        guard
+            let encodedURLString = urlString.encodeUrl(),
+            let url = URL(string:encodedURLString) else {
+            return
+        }
         movieSearchSubscription = NetworkingManager
             .download(for: url)
             .decode(type: MovieList.self, decoder: JSONDecoder())

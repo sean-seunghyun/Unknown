@@ -48,6 +48,7 @@
 		14E1BB4228E522270029AE57 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4128E522270029AE57 /* SearchViewModel.swift */; };
 		14E1BB4428E530C70029AE57 /* MoviePosterDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4328E530C70029AE57 /* MoviePosterDataService.swift */; };
 		14E1BB4628E533390029AE57 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4528E533390029AE57 /* CacheManager.swift */; };
+		14E1BB6428EE53A90029AE57 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6328EE53A90029AE57 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		14E1BB4128E522270029AE57 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		14E1BB4328E530C70029AE57 /* MoviePosterDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterDataService.swift; sourceTree = "<group>"; };
 		14E1BB4528E533390029AE57 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		14E1BB6328EE53A90029AE57 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = ../../../String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				14E1BB0B28DDB48C0029AE57 /* Bundle.swift */,
 				14E1BB2528E3322D0029AE57 /* Double.swift */,
 				14E1BB2728E33D740029AE57 /* UIScreen.swift */,
+				14E1BB6328EE53A90029AE57 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				14E1BB0C28DDB48C0029AE57 /* Bundle.swift in Sources */,
 				14E1BB4028E417740029AE57 /* MovieSearchDataService.swift in Sources */,
 				14E1BAE228DD76BA0029AE57 /* PosterView.swift in Sources */,
+				14E1BB6428EE53A90029AE57 /* String.swift in Sources */,
 				14E1BAF928DD9B580029AE57 /* UpcomingMoviesDataService.swift in Sources */,
 				14E1BB1C28E2887A0029AE57 /* BackdropViewModel.swift in Sources */,
 				14E1BAF328DD80FE0029AE57 /* HomeViewModel.swift in Sources */,
