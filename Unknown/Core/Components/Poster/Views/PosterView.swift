@@ -24,8 +24,15 @@ struct PosterView: View {
                 .resizable()
                 .scaledToFill()
                 .clipShape(RoundedRectangle(cornerRadius: 20))
-        }else{
+        }else if vm.isLoading{
             ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.theme.white))
+        }else {
+
+            Image(systemName: "photo")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(Color.theme.gray)
         }
         
     }

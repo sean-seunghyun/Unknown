@@ -19,22 +19,43 @@ class PosterViewModel: ObservableObject{
     private let posterStorage: PosterStorage
     private let movie: Movie
     private let dataService: MoviePosterDataService
-    private var cancellables = Set<AnyCancellable>()
+//    private var cancellables = Set<AnyCancellable>()
+    private var moviePosterSubscription: AnyCancellable?
+    
     @Published var poster: UIImage? = nil
+    
+    
+    @Published var isLoading: Bool
+    
+    
     
     
     init(movie: Movie, posterStorage: PosterStorage){
         self.movie = movie
         self.posterStorage = posterStorage
+        isLoading = true
         dataService = MoviePosterDataService(movie: movie, posterStorage: posterStorage)
         addSubscribers()
     }
+
     
-    private func addSubscribers(){
-        dataService.$poster
-            .sink { [weak self] receivedPoster in
+    
+    private func addSubscribers(){           
+        moviePosterSubscription = dataService.posterPublisher
+            .sink { [weak self] completion in
+                switch completion{
+                case .finished :
+                    print("Finished for \(self?.movie.title ?? "")")
+                    self?.isLoading = false
+                    break
+                case .failure(let error) :
+                    print("error occured: \(error)")
+                }
+            } receiveValue: {[weak self] receivedPoster in
                 self?.poster = receivedPoster
             }
-            .store(in: &cancellables)
     }
+    
 }
+
+

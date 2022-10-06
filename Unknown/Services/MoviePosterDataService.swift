@@ -10,7 +10,11 @@ import SwiftUI
 import Combine
 
 class MoviePosterDataService{
-    @Published var poster: UIImage? = nil
+//    @Published var poster: UIImage?
+//    let passThroughPosterPublisher = PassthroughSubject<UIImage?, Error>()
+        let posterPublisher = CurrentValueSubject<UIImage?, Error>(nil)
+
+    
     private let movie: Movie
     private let posterStorage: PosterStorage
     private var moviePosterSubscription: AnyCancellable?
@@ -21,6 +25,7 @@ class MoviePosterDataService{
     let fileManger = LocalFileManager.instance
     let folderName: String = "movie_posters"
     let imageName: String
+    var cancellables = Set<AnyCancellable>()
     
     init(movie: Movie, posterStorage: PosterStorage){
         self.movie = movie
@@ -32,22 +37,23 @@ class MoviePosterDataService{
     
     private func getMoviePoster(){
         let savedMoviePoster = getMoviePosterFromStorage()
-        if savedMoviePoster != nil{
-            poster = savedMoviePoster
+        
+        if let savedMoviePoster = savedMoviePoster {
+            print("get saved movie poster: \(movie.title)")
+            posterPublisher.send(savedMoviePoster)
         }else{
             downloadMoviePoster()
         }
+
     }
     
     private func getMoviePosterFromStorage() -> UIImage?{
         
         switch posterStorage {
         case .localFileManager:
-            print("get from fileManager")
             return fileManger.get(folderName: folderName, imageName: imageName)
             
         case .cache:
-            print("get from cache")
             return cacheManager.get(key: imageName)
         }
         
@@ -56,24 +62,31 @@ class MoviePosterDataService{
     private func downloadMoviePoster(){
         guard
             let posterPath = movie.posterPath,
-            let url = URL(string: "\(posterBaseURL)\(posterPath)") else { return }
+            let url = URL(string: "\(posterBaseURL)\(posterPath)") else {
+            posterPublisher.send(completion: .finished)
+            return
+        }
+        
+        
         moviePosterSubscription =
         NetworkingManager.download(for: url)
         // 이미지는 decode할 필요 없음
         // 대신 tryMap으로 UIImage로 변환해주기
         
             .tryMap({UIImage(data: $0)})
+         
             .receive(on: DispatchQueue.main) // decoing까지 background 스레드에서 진행, 이후에 main스레드에서 계속 작업
         
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] returnedPoster in
                 guard
                     let self = self,
                     let downloadedPoster = returnedPoster
-                else { return }
-                self.poster = downloadedPoster
-                
+                else {
+                    print("downloaded Poster is nil")
+                    return
+                }
+                self.posterPublisher.send(downloadedPoster)
                 self.save(image: downloadedPoster, to: self.posterStorage)
-                
                 self.moviePosterSubscription?.cancel()
             })
     }
@@ -82,11 +95,10 @@ class MoviePosterDataService{
         switch self.posterStorage {
         case .localFileManager:
             self.fileManger.add(image: image, folderName: self.folderName, imageName: self.imageName)
-            print("save to FileManager")
+            
         case .cache:
             self.cacheManager.add(key: self.imageName, image: image)
-            print("save to cache")
-
+            
         }
     }
     

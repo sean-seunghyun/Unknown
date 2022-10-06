@@ -41,6 +41,7 @@ class NetworkingManager{
             
             // 여기서 error가 나면 handleCompletion에서 error을 받아서 출력함
         }
+
         return output.data
     }
     
@@ -48,7 +49,7 @@ class NetworkingManager{
         
         switch completion{
         case .finished:
-             break
+            break
         case .failure(let error) :
             print("error downloading data: \(error)")
         }

@@ -31,8 +31,14 @@ class BackdropViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
-        posterDataService.$poster
-            .sink { [weak self] receivedPoster in
+        posterDataService.posterPublisher
+            .sink { completion in
+                switch completion{
+                case .finished : break
+                case .failure(let error) :
+                    print("error occured: \(error.localizedDescription)")
+                }
+            } receiveValue: {[weak self] receivedPoster in
                 self?.poster = receivedPoster
             }
             .store(in: &cancellables)
