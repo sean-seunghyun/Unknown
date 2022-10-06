@@ -10,7 +10,6 @@ import Combine
 
 class SearchViewModel: ObservableObject{
     
-    
     @Published var searchText: String = ""
     var previouslySearchedKey: String = ""
     
@@ -18,6 +17,8 @@ class SearchViewModel: ObservableObject{
     
     @Published var searchedMovies: [Movie] = []
     @Published var searchedMovieList: MovieList? = nil
+    
+    private var isFirstSearch: Bool = true
     
     var cancellables = Set<AnyCancellable>()
     
@@ -30,13 +31,21 @@ class SearchViewModel: ObservableObject{
     func addSubscribers(){
         movieSearchDataService.$searchedMovieList
             .sink { [weak self] searchedMovieList in
-                self?.searchedMovieList = searchedMovieList
-                self?.searchedMovies.append(contentsOf: searchedMovieList?.results ?? [])
+                guard let self = self else { return }
+                
+                self.searchedMovieList = searchedMovieList
+                
+                if self.isFirstSearch{
+                    self.searchedMovies = searchedMovieList?.results ?? []
+                }else{
+                    self.searchedMovies.append(contentsOf: searchedMovieList?.results ?? [])
+                }
             }
             .store(in: &cancellables)
     }
     
     func searchMovie(key: String, page: Int = 1){
+        isFirstSearch = true
         previouslySearchedKey = key
         movieSearchDataService.searchMovie(key: key, page: page)
     }
@@ -44,6 +53,7 @@ class SearchViewModel: ObservableObject{
     func searchMovieIfPossible(){
         guard
             let searchedMovieList = searchedMovieList else { return }
+        isFirstSearch = false
         let currentPage = searchedMovieList.page
         let totalPage = searchedMovieList.totalPages
         if currentPage < totalPage {
