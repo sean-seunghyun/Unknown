@@ -77,6 +77,7 @@ extension HomeView{
             .foregroundColor(Color.theme.white)
             .bold()
             .font(.title2)
+            .padding(.top, 30)
     }
     
     private var trendingMovies: some View{
@@ -135,16 +136,25 @@ extension HomeView{
                 ForEach(vm.popularMovies) { movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
+                        .onTapGesture {
+                            segue(movie: movie)
+                        }
                 }
             case .upcoming:
                 ForEach(vm.upcomingMovies) { movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
+                        .onTapGesture {
+                            segue(movie: movie)
+                        }
                 }
             case .topRated:
                 ForEach(vm.topRatedMovies) { movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
                         .frame(width: 110, height: 150)
+                        .onTapGesture {
+                            segue(movie: movie)
+                        }
                 }
                 
             }

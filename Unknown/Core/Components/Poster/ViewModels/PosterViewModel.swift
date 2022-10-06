@@ -45,7 +45,6 @@ class PosterViewModel: ObservableObject{
             .sink { [weak self] completion in
                 switch completion{
                 case .finished :
-                    print("Finished for \(self?.movie.title ?? "")")
                     self?.isLoading = false
                     break
                 case .failure(let error) :

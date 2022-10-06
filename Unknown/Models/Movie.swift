@@ -40,7 +40,9 @@ struct Movie: Codable, Identifiable, Equatable {
     let backdropPath: String?
     let id: Int
     let title: String
-    let originalLanguage, originalTitle, overview: String
+    let originalLanguage: String
+    let originalTitle: String
+    let overview: String
     let posterPath: String?
     let mediaType: String?
     let genreIDS: [Int]
@@ -53,7 +55,8 @@ struct Movie: Codable, Identifiable, Equatable {
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case id, title
+        case id
+        case title
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview
@@ -66,4 +69,6 @@ struct Movie: Codable, Identifiable, Equatable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+    
+   
 }

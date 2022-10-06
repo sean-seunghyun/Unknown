@@ -76,10 +76,7 @@ class MoviePosterDataService{
                 guard
                     let self = self,
                     let downloadedPoster = returnedPoster
-                else {
-                    print("downloaded Poster is nil")
-                    return
-                }
+                else { return }
                 self.posterPublisher.send(downloadedPoster)
                 self.save(image: downloadedPoster, to: self.posterStorage)
                 self.moviePosterSubscription?.cancel()

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DetailView: View {
     
-    private let movie: Movie
+    private var movie: Movie
     @StateObject private var vm: DetailViewModel
     
     init(movie: Movie){
@@ -40,6 +40,12 @@ struct DetailView: View {
                 }
                 .frame(maxWidth: UIScreen.screenWidth)
             }
+            .navigationTitle(movie.title)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    bookmarkToolbarItem
+                }
+            }
             
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -50,11 +56,26 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(movie: dev.movie)
+            .environmentObject(dev.homeVM)
     }
 }
 
 
 extension DetailView{
+    
+    private var bookmarkToolbarItem: some View{
+        Button {
+            vm.updateBookmark(movie)
+            
+        } label: {
+            Image(systemName: vm.isBookmarked ?
+                  "bookmark.fill" :
+                    "bookmark"
+            )
+            .foregroundColor(Color.theme.white)
+        }
+        
+    }
     
     private var backdrop: some View{
         BackdropView(movie: movie)

@@ -49,6 +49,8 @@
 		14E1BB4428E530C70029AE57 /* MoviePosterDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4328E530C70029AE57 /* MoviePosterDataService.swift */; };
 		14E1BB4628E533390029AE57 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4528E533390029AE57 /* CacheManager.swift */; };
 		14E1BB6428EE53A90029AE57 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6328EE53A90029AE57 /* String.swift */; };
+		14E1BB6728EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6528EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld */; };
+		14E1BB6928EE7AB50029AE57 /* BookmarkDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,8 @@
 		14E1BB4328E530C70029AE57 /* MoviePosterDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterDataService.swift; sourceTree = "<group>"; };
 		14E1BB4528E533390029AE57 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		14E1BB6328EE53A90029AE57 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = ../../../String.swift; sourceTree = "<group>"; };
+		14E1BB6628EE7A2F0029AE57 /* BookmarkContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookmarkContainer.xcdatamodel; sourceTree = "<group>"; };
+		14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,7 @@
 				14E1BAF428DD8A3F0029AE57 /* MovieList.swift */,
 				14E1BB2128E2B1CF0029AE57 /* MovieDetail.swift */,
 				14E1BB3728E40DD70029AE57 /* Genre.swift */,
+				14E1BB6528EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 				14E1BB1228E287370029AE57 /* MovieBackdropDataService.swift */,
 				14E1BB2328E2B2620029AE57 /* MovieDetailDataService.swift */,
 				14E1BB3F28E417740029AE57 /* MovieSearchDataService.swift */,
+				14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14E1BB6928EE7AB50029AE57 /* BookmarkDataService.swift in Sources */,
 				14E1BB3428E4071D0029AE57 /* SearchedMovieRow.swift in Sources */,
 				14E1BAFF28DDA6A60029AE57 /* PopularMoviesDataService.swift in Sources */,
 				14E1BB2428E2B2620029AE57 /* MovieDetailDataService.swift in Sources */,
@@ -447,6 +454,7 @@
 				14E1BADA28DD5B370029AE57 /* HomeView.swift in Sources */,
 				14E1BAD028DD4CA30029AE57 /* Color.swift in Sources */,
 				14E1BB3C28E4125C0029AE57 /* SearchView.swift in Sources */,
+				14E1BB6728EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld in Sources */,
 				14E1BB1328E287370029AE57 /* MovieBackdropDataService.swift in Sources */,
 				14E1BB0C28DDB48C0029AE57 /* Bundle.swift in Sources */,
 				14E1BB4028E417740029AE57 /* MovieSearchDataService.swift in Sources */,
@@ -665,6 +673,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		14E1BB6528EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				14E1BB6628EE7A2F0029AE57 /* BookmarkContainer.xcdatamodel */,
+			);
+			currentVersion = 14E1BB6628EE7A2F0029AE57 /* BookmarkContainer.xcdatamodel */;
+			path = BookmarkContainer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 14E1BAB528DD4A520029AE57 /* Project object */;
 }
