@@ -15,7 +15,7 @@ struct TabItemView: View {
         VStack(spacing: 5){
             Text(title)
                 .foregroundColor(Color.theme.white)
-                
+                .font(.subheadline)
             Rectangle()
                 .frame(height: 5)
                 .foregroundColor(Color.theme.gray)

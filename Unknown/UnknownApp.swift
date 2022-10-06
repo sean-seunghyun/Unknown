@@ -12,7 +12,8 @@ struct UnknownApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-                SearchView()
+//                SearchView()
+                HomeView()
                 .navigationBarHidden(true)
             }
             .environmentObject(HomeViewModel.instance)

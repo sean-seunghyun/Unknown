@@ -9,10 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @State var selectedMovie: Movie? = nil
-    @State var showDetail: Bool = false
-    @State var textFieldText: String = ""
-    
     @EnvironmentObject var vm: HomeViewModel
     
     var body: some View {
@@ -23,7 +19,6 @@ struct HomeView: View {
             ScrollView{
                 VStack(alignment: .leading){
                     
-                   
                     headerTitle
                         .padding(.horizontal)
                         .padding(.bottom, 20)
@@ -43,8 +38,8 @@ struct HomeView: View {
             
         }
         .background(
-            NavigationLink(isActive: $showDetail) {
-                if let selectedMovie = selectedMovie {
+            NavigationLink(isActive: $vm.showDetail) {
+                if let selectedMovie = vm.selectedMovie {
                     DetailView(movie: selectedMovie)
                 }
             } label: {
@@ -67,8 +62,8 @@ struct HomeView_Previews: PreviewProvider {
 
 extension HomeView{
     func segue(movie: Movie){
-        self.selectedMovie = movie
-        self.showDetail = true
+        vm.selectedMovie = movie
+        vm.showDetail = true
     }
 }
 
@@ -86,25 +81,18 @@ extension HomeView{
     
     private var trendingMovies: some View{
         ScrollView(.horizontal, showsIndicators: false) {
-            
-            HStack(alignment: .top, spacing: 10){
-
+            HStack(alignment: .top, spacing: 15){
                 ForEach(Array(vm.trendingMovies.enumerated()), id: \.offset) { index, movie in
-                    
-             
                     PosterView(movie: movie, posterStorage: .localFileManager)
                             .frame(width: 160, height: 230)
                             .overlay(
                                 RankNumberView(number: index+1)
                                     .position(x: 20, y: 220)
                                 )
-    
                             .onTapGesture {
                                 segue(movie: movie)
                             }
-                        
                 }
-                
                 
             }
             .frame(height: 300)
@@ -122,7 +110,6 @@ extension HomeView{
                         withAnimation(.easeOut) {
                             vm.selectedTab = tab
                         }
-                        
                     }
             }
             

@@ -20,6 +20,9 @@ class SearchViewModel: ObservableObject{
     
     private var isFirstSearch: Bool = true
     
+    @Published var selectedMovie: Movie? = nil
+    @Published var showDetail: Bool = false
+    
     var cancellables = Set<AnyCancellable>()
     
     static let instance = SearchViewModel()

@@ -73,7 +73,7 @@ extension DetailView{
             .overlay(
                 HStack{
                     Image(systemName: "star")
-                    Text(vm.movieDetail?.voteAverage.asNumberString() ?? "")
+                    Text(vm.movieDetail?.voteAverage.asNumberString() ?? "0.0")
                     
                 }
                     .font(.subheadline)
@@ -159,13 +159,13 @@ extension DetailView{
             switch vm.selectedTab{
                 
             case .aboutMovies:
-                Text(vm.movieDetail?.overview ?? "")
+                Text(vm.movieDetail?.overview ?? "n/a")
             case .reviews:
                 VStack(spacing: 20){
                     HStack {
                         Text("Rating")
                         Spacer()
-                        Text(vm.movieDetail?.voteAverage.asNumberString() ?? "")
+                        Text(vm.movieDetail?.voteAverage.asNumberString() ?? "0.0")
                             .bold()
                     }
                     Divider()
@@ -179,7 +179,7 @@ extension DetailView{
                     HStack {
                         Text("Popularity")
                         Spacer()
-                        Text(vm.movieDetail?.popularity.asNumberString() ?? "")
+                        Text(vm.movieDetail?.popularity.asNumberString() ?? "0")
                             .bold()
                     }
                 }
@@ -193,9 +193,11 @@ extension DetailView{
                         if revenue != 0{
                             Text("$ \(revenue)")
                         }else{
-                            Text("N/A")
+                            Text("0")
                                 .bold()
                         }
+                    }else{
+                        Text("0")
                     }
                     
                 }

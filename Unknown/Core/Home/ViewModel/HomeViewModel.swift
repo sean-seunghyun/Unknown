@@ -30,6 +30,11 @@ class HomeViewModel: ObservableObject{
     let popularMoviesDataService = PopularMoviesDataService.instance
     let topRatedMoviesDataService = TopRatedMoviesDataService.instance
     
+    @Published var selectedMovie: Movie? = nil
+    @Published var showDetail: Bool = false
+    
+    @Published var textFieldText: String = ""
+    
 //    @Published var searchText: String = ""
     
 //    let movieSearchDataService = MovieSearchDataService.instance

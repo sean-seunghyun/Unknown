@@ -33,6 +33,10 @@ struct SearchView: View {
                                                 onScrolledAtBottom()
                                             }
                                         }
+                                        .onTapGesture {
+                                            vm.selectedMovie = movie
+                                            vm.showDetail = true
+                                        }
                                 }
                         }
                     }
@@ -56,6 +60,17 @@ struct SearchView: View {
             }
             
         }
+        .background(
+            NavigationLink(isActive: $vm.showDetail) {
+                if let selectedMovie = vm.selectedMovie {
+                    DetailView(movie: selectedMovie)
+                }
+            } label: {
+                EmptyView()
+            }
+        )
+
+        
     }
 }
 
