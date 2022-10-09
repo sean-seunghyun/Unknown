@@ -1,5 +1,5 @@
 //
-//  BookmarkDataService.swift
+//  BookmarkCoreDataService.swift
 //  Unknown
 //
 //  Created by sean on 2022/10/06.
@@ -8,13 +8,13 @@
 import Foundation
 import CoreData
 
-class BookmarkDataService{
+class BookmarkCoreDataService{
     private let container: NSPersistentContainer
     private let entityName: String = "BookmarkedMovieEntity"
     
     @Published var bookmarkedMovieEntities: [BookmarkedMovieEntity] = []
     
-    static let instance = BookmarkDataService()
+    static let instance = BookmarkCoreDataService()
     
     private init(){
         container = NSPersistentContainer(name: "BookmarkContainer")
@@ -52,7 +52,6 @@ class BookmarkDataService{
     // MARK: - PRIVATE
     private func getBookmarks(){
         let request = NSFetchRequest<BookmarkedMovieEntity>(entityName: entityName)
-        
         do{
             bookmarkedMovieEntities = try container.viewContext.fetch(request)
         }catch let error{

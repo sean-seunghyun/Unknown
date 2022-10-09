@@ -31,7 +31,7 @@ struct UnknownApp: App {
                         .navigationTitle("")
                         .navigationBarHidden(true)
                     
-                    Text("cc")
+                    BookmarkView()
                         .tabItem {
                             Image(systemName: "bookmark")
                             Text("Setting")

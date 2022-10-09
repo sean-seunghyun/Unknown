@@ -24,38 +24,14 @@ struct SearchView: View {
                     Text("총 \(movieList.totalResults) 건의 검색결과가 있습니다.")
                         .foregroundColor(Color.theme.gray)
                     
-                    ScrollView {
-                        LazyVStack{
-                            ForEach(vm.searchedMovies) { movie in
-                                    SearchedMovieRow(movie: movie)
-                                        .onAppear {
-                                            if vm.searchedMovies.last == movie{
-                                                onScrolledAtBottom()
-                                            }
-                                        }
-                                        .onTapGesture {
-                                            vm.selectedMovie = movie
-                                            vm.showDetail = true
-                                        }
-                                }
-                        }
-                    }
+                    searchedResults
                     
                 }else{
                     Spacer()
-                    VStack {
-                        Text("🤔")
-                            .font(.largeTitle)
-                        
-                        Text("We are sorry. \n We cannot find the movie :( ")
-                            .multilineTextAlignment(.center)
-                            .font(.title)
-                        
-                    }
-                    .foregroundColor(Color.theme.gray)
+                    emptyResults
                 }
                 
-                
+                Spacer()
                 Spacer()
             }
             
@@ -81,11 +57,49 @@ struct SearchView_Previews: PreviewProvider {
     }
 }
 
+// MARK: - COMPONENTS
+extension SearchView{
+    private var searchedResults: some View {
+        ScrollView {
+            LazyVStack{
+                ForEach(vm.searchedMovies) { movie in
+                        SearchedMovieRow(movie: movie)
+                            .onAppear {
+                                if vm.searchedMovies.last == movie{
+                                    onScrolledAtBottom()
+                                }
+                            }
+                            .onTapGesture {
+                                vm.selectedMovie = movie
+                                vm.showDetail = true
+                            }
+                    }
+            }
+        }
+    }
+    
+    private var emptyResults: some View{
+        VStack {
+            Text("🤔")
+                .font(.largeTitle)
+            
+            Text("We are sorry. \n We couldn't find the movie :( ")
+                .multilineTextAlignment(.center)
+                .font(.title)
+            
+        }
+        .foregroundColor(Color.theme.gray)
 
+    }
+}
+
+
+// MARK: - FUNCTIONS
 extension SearchView{
     func onScrolledAtBottom(){
         print("fetchNextPageIfPossible")
         vm.searchMovieIfPossible()
-        
     }
 }
+
+

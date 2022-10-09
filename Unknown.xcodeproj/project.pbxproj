@@ -50,7 +50,9 @@
 		14E1BB4628E533390029AE57 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB4528E533390029AE57 /* CacheManager.swift */; };
 		14E1BB6428EE53A90029AE57 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6328EE53A90029AE57 /* String.swift */; };
 		14E1BB6728EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6528EE7A2F0029AE57 /* BookmarkContainer.xcdatamodeld */; };
-		14E1BB6928EE7AB50029AE57 /* BookmarkDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */; };
+		14E1BB6928EE7AB50029AE57 /* BookmarkCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6828EE7AB50029AE57 /* BookmarkCoreDataService.swift */; };
+		14E1BB7028EE9E610029AE57 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6F28EE9E610029AE57 /* BookmarkView.swift */; };
+		14E1BB7428EEA5E20029AE57 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB7328EEA5E20029AE57 /* BookmarkViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,7 +100,9 @@
 		14E1BB4528E533390029AE57 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		14E1BB6328EE53A90029AE57 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = ../../../String.swift; sourceTree = "<group>"; };
 		14E1BB6628EE7A2F0029AE57 /* BookmarkContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookmarkContainer.xcdatamodel; sourceTree = "<group>"; };
-		14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDataService.swift; sourceTree = "<group>"; };
+		14E1BB6828EE7AB50029AE57 /* BookmarkCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoreDataService.swift; sourceTree = "<group>"; };
+		14E1BB6F28EE9E610029AE57 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
+		14E1BB7328EEA5E20029AE57 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,7 @@
 		14E1BAD328DD5B040029AE57 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				14E1BB6A28EE9E300029AE57 /* Bookmark */,
 				14E1BB3028E406E50029AE57 /* Search */,
 				14E1BB0D28E285000029AE57 /* Detail */,
 				14E1BADB28DD765B0029AE57 /* Components */,
@@ -263,7 +268,7 @@
 				14E1BB1228E287370029AE57 /* MovieBackdropDataService.swift */,
 				14E1BB2328E2B2620029AE57 /* MovieDetailDataService.swift */,
 				14E1BB3F28E417740029AE57 /* MovieSearchDataService.swift */,
-				14E1BB6828EE7AB50029AE57 /* BookmarkDataService.swift */,
+				14E1BB6828EE7AB50029AE57 /* BookmarkCoreDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -355,6 +360,31 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		14E1BB6A28EE9E300029AE57 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB6C28EE9E420029AE57 /* ViewModels */,
+				14E1BB6B28EE9E3A0029AE57 /* Views */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		14E1BB6B28EE9E3A0029AE57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB6F28EE9E610029AE57 /* BookmarkView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		14E1BB6C28EE9E420029AE57 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB7328EEA5E20029AE57 /* BookmarkViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -430,7 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14E1BB6928EE7AB50029AE57 /* BookmarkDataService.swift in Sources */,
+				14E1BB6928EE7AB50029AE57 /* BookmarkCoreDataService.swift in Sources */,
 				14E1BB3428E4071D0029AE57 /* SearchedMovieRow.swift in Sources */,
 				14E1BAFF28DDA6A60029AE57 /* PopularMoviesDataService.swift in Sources */,
 				14E1BB2428E2B2620029AE57 /* MovieDetailDataService.swift in Sources */,
@@ -462,10 +492,12 @@
 				14E1BB6428EE53A90029AE57 /* String.swift in Sources */,
 				14E1BAF928DD9B580029AE57 /* UpcomingMoviesDataService.swift in Sources */,
 				14E1BB1C28E2887A0029AE57 /* BackdropViewModel.swift in Sources */,
+				14E1BB7428EEA5E20029AE57 /* BookmarkViewModel.swift in Sources */,
 				14E1BAF328DD80FE0029AE57 /* HomeViewModel.swift in Sources */,
 				14E1BB2C28E3E0F70029AE57 /* RankNumberView.swift in Sources */,
 				14E1BAE728DD78EC0029AE57 /* Movie.swift in Sources */,
 				14E1BAE928DD79B30029AE57 /* PreviewProvider.swift in Sources */,
+				14E1BB7028EE9E610029AE57 /* BookmarkView.swift in Sources */,
 				14E1BAE428DD78740029AE57 /* PosterViewModel.swift in Sources */,
 				14E1BB3628E409B20029AE57 /* GenreFinder.swift in Sources */,
 				14E1BB1E28E2888A0029AE57 /* BackdropView.swift in Sources */,

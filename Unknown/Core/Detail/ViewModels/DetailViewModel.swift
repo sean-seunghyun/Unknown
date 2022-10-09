@@ -11,7 +11,11 @@ import Combine
 class DetailViewModel:ObservableObject{
     @Published var movie: Movie
     let movieDetailDataService: MovieDetailDataService
-    let bookmarkDataService: BookmarkDataService
+    let movieSearchDataService: MovieSearchDataService
+    let bookmarkCoreDataService: BookmarkCoreDataService
+    
+    var bookmarkedMovieIDs:[Int] = []
+    
     var cancellables = Set<AnyCancellable>()
     @Published var movieDetail: MovieDetail? = nil
     
@@ -30,8 +34,9 @@ class DetailViewModel:ObservableObject{
     init(movie: Movie){
         self.movie = movie
         self.movieDetailDataService = MovieDetailDataService(movie: movie)
-        self.bookmarkDataService = BookmarkDataService.instance
-        self.isBookmarked = bookmarkDataService.isBookmarked(movie: movie)
+        self.bookmarkCoreDataService = BookmarkCoreDataService.instance
+        self.isBookmarked = bookmarkCoreDataService.isBookmarked(movie: movie)
+        self.movieSearchDataService = MovieSearchDataService.instance
         
         addSubscribers()
     }
@@ -42,8 +47,10 @@ class DetailViewModel:ObservableObject{
                 self?.movieDetail = returnedMovieDetail
             }
             .store(in: &cancellables)
+
         
-        bookmarkDataService.$bookmarkedMovieEntities
+        // bookmarkDataService의 북마크 되어있는 Entity의 값이 변화할 때마다 detailView에 해당하는 movie의 id가 Entity의 id와 같은지 확인해 북마크되어있는지 여부를 판단함
+        bookmarkCoreDataService.$bookmarkedMovieEntities
             .map(isBookmarkedMovie)
             .sink { [weak self] isBookmarked in
                 self?.isBookmarked = isBookmarked
@@ -53,11 +60,15 @@ class DetailViewModel:ObservableObject{
     
     
     func updateBookmark(_ movie: Movie){
-        bookmarkDataService.updateBookmark(movie: movie)
+        bookmarkCoreDataService.updateBookmark(movie: movie)
     }
     
+    
     private func isBookmarkedMovie(entities: [BookmarkedMovieEntity]) -> Bool{
+        
         if entities.first(where: { $0.movieID == self.movie.id }) != nil{
+            //TODO 왜 중복으로 계속 실행되는지 추후에 확인 필요함.
+            print("check isBookmarked Movie for movieID: \(self.movie.title)")
             return true
         }
         else {

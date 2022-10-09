@@ -63,7 +63,7 @@ extension SearchedMovieRow{
         HStack {
             Image(systemName: "ticket")
                 .frame(width: 20)
-            Text(genreFinder.getGenreName(id: movie.genreIDS.first ?? 0) ?? "n/a")
+            Text(genreFinder.getGenreName(id: movie.genreIDS?.first ?? 0) ?? "n/a")
             
         }
         .font(.subheadline)

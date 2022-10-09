@@ -24,20 +24,22 @@ class HomeViewModel: ObservableObject{
     @Published var popularMovies:[Movie] = []
     @Published var topRatedMovies:[Movie] = []
     
+    @Published var bookmarkedMovies:[Movie] = []
 
-    
     let nowPlayingMoviesDataService = NowPlayingMoviesDataService.instance
     let upcomingMoviesDataService = UpcomingMoviesDataService.instance
     let popularMoviesDataService = PopularMoviesDataService.instance
     let topRatedMoviesDataService = TopRatedMoviesDataService.instance
-    
-    let bookmarkDataService = BookmarkDataService.instance
-    @Published var bookmarkedMovieIDs: [Int] = []
+
+
+    let bookmarkCoreDataService = BookmarkCoreDataService.instance
+    let movieSearchDataService = MovieSearchDataService.instance
 
     @Published var selectedMovie: Movie? = nil
     @Published var showDetail: Bool = false
     
     @Published var textFieldText: String = ""
+    
     
     var cancellables = Set<AnyCancellable>()
     
@@ -71,24 +73,31 @@ class HomeViewModel: ObservableObject{
                 self?.topRatedMovies = topRatedMovies
             }
             .store(in: &cancellables)
-//        
-//        bookmarkDataService.$bookmarkedMovieEntities
-//            .map { bookmaredMovieEntites in
-//                
-//                
-//            }
         
-   
+        bookmarkCoreDataService.$bookmarkedMovieEntities
+                .map (handleBookmarkedMovieEntity)
+                .map(handleMovieIDs)
+                .sink { _ in }
+                .store(in: &cancellables)
+        
     }
     
-//    func updateBookmark(_ movie: Movie){
-//        bookmarkDataService.updateBookmark(movie: movie)
-//    }
-//    
-//    
-//    func isBookmarked(_ movie: Movie) -> Bool {
-//        return bookmarkDataService.isBookmarked(movie: movie)
-//    }
-//    
-
+    private func handleBookmarkedMovieEntity(movieEntites: [BookmarkedMovieEntity]) -> [Int]{
+        let ids = movieEntites.map({Int($0.movieID)})
+        return ids
+    }
+    
+    private func handleMovieIDs(ids: [Int]){
+        self.bookmarkedMovies = [] // init array
+        let _ = ids.map(requestMovie)
+    }
+    
+    private func requestMovie(id: Int) -> (){
+        movieSearchDataService.searchMovie(id: id, completionHandler: { [weak self] movie in
+            DispatchQueue.main.async {
+                self?.bookmarkedMovies.append(movie)
+            }
+        })
+    }
+    
 }
