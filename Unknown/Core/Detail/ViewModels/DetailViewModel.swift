@@ -20,7 +20,7 @@ class DetailViewModel:ObservableObject{
     @Published var movieDetail: MovieDetail? = nil
     
     @Published var isBookmarked: Bool
-  
+    
     
     enum Tab: String{
         case aboutMovies = "About Movies"
@@ -47,7 +47,7 @@ class DetailViewModel:ObservableObject{
                 self?.movieDetail = returnedMovieDetail
             }
             .store(in: &cancellables)
-
+        
         
         // bookmarkDataService의 북마크 되어있는 Entity의 값이 변화할 때마다 detailView에 해당하는 movie의 id가 Entity의 id와 같은지 확인해 북마크되어있는지 여부를 판단함
         bookmarkCoreDataService.$bookmarkedMovieEntities
@@ -65,10 +65,9 @@ class DetailViewModel:ObservableObject{
     
     
     private func isBookmarkedMovie(entities: [BookmarkedMovieEntity]) -> Bool{
+        print(entities)
         
         if entities.first(where: { $0.movieID == self.movie.id }) != nil{
-            //TODO 왜 중복으로 계속 실행되는지 추후에 확인 필요함.
-            print("check isBookmarked Movie for movieID: \(self.movie.title)")
             return true
         }
         else {

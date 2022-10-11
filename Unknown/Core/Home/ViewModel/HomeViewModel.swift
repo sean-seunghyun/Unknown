@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject{
     let tabs:[Tab] = [.popular, .upcoming, .topRated]
 
     
-    @Published var trendingMovies:[Movie] = []
+    @Published var nowPlayingMovies:[Movie] = []
     @Published var upcomingMovies:[Movie] = []
     @Published var popularMovies:[Movie] = []
     @Published var topRatedMovies:[Movie] = []
@@ -51,8 +51,8 @@ class HomeViewModel: ObservableObject{
     
     func addSubscribers(){
         nowPlayingMoviesDataService.$nowPlayingMovies
-            .sink { [weak self] trendingMovies in
-                self?.trendingMovies = trendingMovies
+            .sink { [weak self] nowPlayingMovies in
+                self?.nowPlayingMovies = nowPlayingMovies
             }
             .store(in: &cancellables)
         

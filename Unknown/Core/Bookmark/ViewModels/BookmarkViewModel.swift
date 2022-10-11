@@ -13,6 +13,9 @@ class BookmarkViewModel: ObservableObject{
     
     private var homeViewModel = HomeViewModel.instance
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var selectedMovie: Movie? = nil
+    @Published var showDetail: Bool = false
 
     static let instance = BookmarkViewModel()
     
@@ -26,7 +29,6 @@ class BookmarkViewModel: ObservableObject{
                 self?.bookmarkedMovies = receivedMovies
             }
             .store(in: &cancellables)
-
     }
     
 }

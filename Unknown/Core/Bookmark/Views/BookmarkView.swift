@@ -18,21 +18,25 @@ struct BookmarkView: View {
                 LazyVStack{
                     
                     ForEach(vm.bookmarkedMovies) { movie in
-                        Text(String(movie.title))
-//                            SearchedMovieRow(movie: movie)
-//                                .onAppear {
-//                                    if vm.searchedMovies.last == movie{
-//                                        onScrolledAtBottom()
-//                                    }
-//                                }
-//                                .onTapGesture {
-//                                    vm.selectedMovie = movie
-//                                    vm.showDetail = true
-//                                }
+                            SearchedMovieRow(movie: movie)
+                                .onTapGesture {
+                                    vm.selectedMovie = movie
+                                    vm.showDetail = true
+                                }
                         }
                 }
             }
         }
+        .background(
+            NavigationLink(isActive: $vm.showDetail) {
+                if let selectedMovie = vm.selectedMovie {
+                    DetailView(movie: selectedMovie)
+                }
+            } label: {
+                EmptyView()
+            }
+        )
+        
     }
 }
 

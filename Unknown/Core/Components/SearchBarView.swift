@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct SearchBarView: View {
-//    @EnvironmentObject var vm:HomeViewModel
-    @ObservedObject var vm:SearchViewModel
-    
     @Binding var textFieldText: String
+    var handleSearchButton: () -> ()
+    var handleXButton:() -> ()
+    
+    
     var body: some View {
         HStack{
             TextField("Search", text: $textFieldText)
@@ -31,7 +32,7 @@ struct SearchBarView: View {
 
 struct SearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarView(vm: dev.serachVM, textFieldText: .constant(""))
+        SearchBarView(textFieldText: .constant(""), handleSearchButton: {}, handleXButton: {})
             .previewLayout(.sizeThatFits)
     }
 }
@@ -42,9 +43,7 @@ struct SearchBarView_Previews: PreviewProvider {
 extension SearchBarView{
     private var xButton: some View{
         Button {
-            textFieldText = ""
-            vm.searchedMovieList = nil
-            vm.searchedMovies = []
+            self.handleXButton()
         } label: {
             Image(systemName: "xmark.circle.fill")
                 .opacity(textFieldText.isEmpty ? 0.0 : 1.0)
@@ -53,13 +52,7 @@ extension SearchBarView{
     
     private var searchButton: some View{
         Button{
-            if textFieldText == "" {
-                return
-            }
-            var key = textFieldText.lowercased()
-            key = key.replacingOccurrences(of: " ", with: "+")
-            vm.searchMovie(key: key)
-            
+            self.handleSearchButton()
         }label: {
             Image(systemName: "magnifyingglass")
 

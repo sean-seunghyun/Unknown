@@ -16,7 +16,7 @@ struct SearchView: View {
             Color.theme.background
                 .ignoresSafeArea()
             VStack{
-                SearchBarView(vm: vm, textFieldText: $vm.searchText)
+                SearchBarView(textFieldText: $vm.searchText, handleSearchButton: handleSearchButton, handleXButton: handleSearchBarXButton)
                     .padding()
                 
                 if let movieList = vm.searchedMovieList,
@@ -96,10 +96,26 @@ extension SearchView{
 
 // MARK: - FUNCTIONS
 extension SearchView{
-    func onScrolledAtBottom(){
+    private func onScrolledAtBottom(){
         print("fetchNextPageIfPossible")
         vm.searchMovieIfPossible()
     }
+    
+    private func handleSearchButton(){
+        if vm.searchText == "" {
+            return
+        }
+        var key = vm.searchText.lowercased()
+        key = key.replacingOccurrences(of: " ", with: "+")
+        vm.searchMovie(key: key)
+    }
+    
+    private func handleSearchBarXButton(){
+        vm.searchText = ""
+        vm.searchedMovieList = nil
+        vm.searchedMovies = []
+    }
+    
 }
 
 

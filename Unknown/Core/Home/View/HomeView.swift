@@ -23,10 +23,10 @@ struct HomeView: View {
                         .padding(.horizontal)
                         .padding(.bottom, 20)
                     
-//                    SearchBarView(vm: <#SearchViewModel#>, textFieldText: $textFieldText)
+//                    SearchBarView(vm: vm, textFieldText: $vm.textFieldText)
 //                        .padding(.horizontal, 10)
                     
-                    trendingMovies
+                    nowPlayingMovies
                     tabItemTitles
                         .padding(.bottom, 15)
                     
@@ -35,7 +35,7 @@ struct HomeView: View {
                 }
                 
             }
-            
+            .padding(.top, 1)
         }
         .background(
             NavigationLink(isActive: $vm.showDetail) {
@@ -80,10 +80,10 @@ extension HomeView{
             .padding(.top, 30)
     }
     
-    private var trendingMovies: some View{
+    private var nowPlayingMovies: some View{
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 15){
-                ForEach(Array(vm.trendingMovies.enumerated()), id: \.offset) { index, movie in
+                ForEach(Array(vm.nowPlayingMovies.enumerated()), id: \.offset) { index, movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
                             .frame(width: 160, height: 230)
                             .overlay(
@@ -140,6 +140,7 @@ extension HomeView{
                             segue(movie: movie)
                         }
                 }
+                
             case .upcoming:
                 ForEach(vm.upcomingMovies) { movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
