@@ -9,14 +9,17 @@ import Foundation
 import Combine
 
 class HomeViewModel: ObservableObject{
-    enum Tab: String{
+    
+    @Published var selectedTab: Int = 0
+    
+    enum MovieFilterTab: String{
         case popular = "Popular"
         case upcoming = "Upcoming"
         case topRated = "Top Rated"
     }
     
-    @Published var selectedTab:Tab = .popular
-    let tabs:[Tab] = [.popular, .upcoming, .topRated]
+    @Published var selectedMovieFilterTab:MovieFilterTab = .popular
+    let movieFilterTabs:[MovieFilterTab] = [.popular, .upcoming, .topRated]
 
     
     @Published var nowPlayingMovies:[Movie] = []
@@ -38,7 +41,7 @@ class HomeViewModel: ObservableObject{
     @Published var selectedMovie: Movie? = nil
     @Published var showDetail: Bool = false
     
-    @Published var textFieldText: String = ""
+    @Published var searchText: String = ""
     
     
     var cancellables = Set<AnyCancellable>()

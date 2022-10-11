@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookmarkView: View {
     @StateObject var vm = BookmarkViewModel.instance
+    @Binding var tabSelection: Int
     var body: some View {
         ZStack{
             Color.theme.background
@@ -42,7 +43,7 @@ struct BookmarkView: View {
 
 struct BookmarkView_Previews: PreviewProvider {
     static var previews: some View {
-        BookmarkView()
+        BookmarkView(tabSelection: .constant(2))
             .environmentObject(dev.homeVM)
     }
 }

@@ -9,11 +9,14 @@ import SwiftUI
 
 @main
 struct UnknownApp: App {
+    @State private var tabSelection = 0
+   
+    
     var body: some Scene {
         WindowGroup {
             NavigationView{
-                TabView {
-                    HomeView()
+                TabView(selection: $tabSelection) {
+                    HomeView(tabSelection: $tabSelection)
                         .tabItem{
                             Image(systemName: "house")
                             Text("Home")
@@ -22,7 +25,7 @@ struct UnknownApp: App {
                         .navigationTitle("")
                         .navigationBarHidden(true)
                        
-                    SearchView()
+                    SearchView(tabSelection: $tabSelection)
                         .tabItem {
                             Image(systemName: "magnifyingglass")
                             Text("Search")
@@ -31,7 +34,7 @@ struct UnknownApp: App {
                         .navigationTitle("")
                         .navigationBarHidden(true)
                     
-                    BookmarkView()
+                    BookmarkView(tabSelection: $tabSelection)
                         .tabItem {
                             Image(systemName: "bookmark")
                             Text("Setting")
@@ -47,10 +50,8 @@ struct UnknownApp: App {
                     UITabBar.appearance().backgroundColor = UIColor(Color.theme.darkGray)
                     UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.gray)
                     
-                 
             }
                 
-//                .navigationBarHidden(true)
             }
             .environmentObject(HomeViewModel.instance)
         }

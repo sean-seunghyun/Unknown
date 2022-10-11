@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var vm: HomeViewModel
+    @Binding var tabSelection: Int
     
     var body: some View {
         ZStack{
@@ -22,10 +23,13 @@ struct HomeView: View {
                     headerTitle
                         .padding(.horizontal)
                         .padding(.bottom, 20)
-                    
-//                    SearchBarView(vm: vm, textFieldText: $vm.textFieldText)
-//                        .padding(.horizontal, 10)
-                    
+                    SearchBarView(textFieldText: $vm.searchText, handleSearchButton: {
+                        tabSelection = 1
+                    }, handleXButton: {
+                        vm.searchText = ""
+                    })
+                        .padding(.horizontal, 10)
+                        
                     nowPlayingMovies
                     tabItemTitles
                         .padding(.bottom, 15)
@@ -52,7 +56,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(tabSelection: .constant(0))
             .environmentObject(dev.homeVM)
     }
     
@@ -61,10 +65,11 @@ struct HomeView_Previews: PreviewProvider {
 // MARK: - FUNCTIONS
 
 extension HomeView{
-    func segue(movie: Movie){
+    private func segue(movie: Movie){
         vm.selectedMovie = movie
         vm.showDetail = true
     }
+    
 }
 
 // MARK: - COMPONENTS
@@ -105,11 +110,11 @@ extension HomeView{
     private var tabItemTitles: some View{
         HStack(spacing: 0){
             
-            ForEach(vm.tabs, id: \.self) { tab in
-                TabItemView(title: tab.rawValue, isSelected: vm.selectedTab == tab ? true : false)
+            ForEach(vm.movieFilterTabs, id: \.self) { tab in
+                TabItemView(title: tab.rawValue, isSelected: vm.selectedMovieFilterTab == tab ? true : false)
                     .onTapGesture {
                         withAnimation(.easeOut) {
-                            vm.selectedTab = tab
+                            vm.selectedMovieFilterTab = tab
                         }
                     }
             }
@@ -131,7 +136,7 @@ extension HomeView{
                    spacing: 20,
                    pinnedViews: []){
             
-            switch vm.selectedTab{
+            switch vm.selectedMovieFilterTab{
             case .popular:
                 ForEach(vm.popularMovies) { movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)

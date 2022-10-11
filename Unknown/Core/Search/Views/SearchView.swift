@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject private var vm = SearchViewModel.instance
+    @Binding var tabSelection: Int
+    
     
     var body: some View {
         
@@ -36,6 +38,11 @@ struct SearchView: View {
             }
             
         }
+        .onAppear(perform: {
+            if !vm.searchText.isEmpty{
+                handleSearchButton()
+            }
+        })
         .background(
             NavigationLink(isActive: $vm.showDetail) {
                 if let selectedMovie = vm.selectedMovie {
@@ -52,7 +59,7 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView(tabSelection: .constant(1))
             .environmentObject(dev.homeVM)
     }
 }

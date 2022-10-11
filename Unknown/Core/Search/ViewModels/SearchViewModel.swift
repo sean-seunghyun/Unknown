@@ -23,6 +23,8 @@ class SearchViewModel: ObservableObject{
     @Published var selectedMovie: Movie? = nil
     @Published var showDetail: Bool = false
     
+    var homeVM = HomeViewModel.instance
+    
     var cancellables = Set<AnyCancellable>()
     
     static let instance = SearchViewModel()
@@ -45,6 +47,13 @@ class SearchViewModel: ObservableObject{
                 }
             }
             .store(in: &cancellables)
+        
+        homeVM.$searchText
+            .sink { [weak self] receivedSearchText in
+                self?.searchText = receivedSearchText
+            }
+            .store(in: &cancellables)
+        
     }
     
     func searchMovie(key: String, page: Int = 1){
