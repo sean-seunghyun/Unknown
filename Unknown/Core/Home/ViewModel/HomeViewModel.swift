@@ -43,8 +43,9 @@ class HomeViewModel: ObservableObject{
     
     @Published var searchText: String = ""
     
-    
     var cancellables = Set<AnyCancellable>()
+    
+    let movieDisplayCount: Int = 18
     
     static let instance = HomeViewModel()
     

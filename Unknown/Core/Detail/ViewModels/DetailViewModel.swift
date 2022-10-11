@@ -64,9 +64,7 @@ class DetailViewModel:ObservableObject{
     }
     
     
-    private func isBookmarkedMovie(entities: [BookmarkedMovieEntity]) -> Bool{
-        print(entities)
-        
+    private func isBookmarkedMovie(entities: [BookmarkedMovieEntity]) -> Bool{        
         if entities.first(where: { $0.movieID == self.movie.id }) != nil{
             return true
         }

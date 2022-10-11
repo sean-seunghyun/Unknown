@@ -53,6 +53,7 @@
 		14E1BB6928EE7AB50029AE57 /* BookmarkCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6828EE7AB50029AE57 /* BookmarkCoreDataService.swift */; };
 		14E1BB7028EE9E610029AE57 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB6F28EE9E610029AE57 /* BookmarkView.swift */; };
 		14E1BB7428EEA5E20029AE57 /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB7328EEA5E20029AE57 /* BookmarkViewModel.swift */; };
+		14E1BB9B28F51FFA0029AE57 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E1BB9A28F51FFA0029AE57 /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		14E1BB6828EE7AB50029AE57 /* BookmarkCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoreDataService.swift; sourceTree = "<group>"; };
 		14E1BB6F28EE9E610029AE57 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		14E1BB7328EEA5E20029AE57 /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		14E1BB9A28F51FFA0029AE57 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 		14E1BAD328DD5B040029AE57 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				14E1BB9728F51FCF0029AE57 /* Welcome */,
 				14E1BB6A28EE9E300029AE57 /* Bookmark */,
 				14E1BB3028E406E50029AE57 /* Search */,
 				14E1BB0D28E285000029AE57 /* Detail */,
@@ -385,6 +388,30 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		14E1BB9728F51FCF0029AE57 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB9928F51FE00029AE57 /* ViewModels */,
+				14E1BB9828F51FDB0029AE57 /* Views */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		14E1BB9828F51FDB0029AE57 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				14E1BB9A28F51FFA0029AE57 /* WelcomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		14E1BB9928F51FE00029AE57 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -499,6 +526,7 @@
 				14E1BAE928DD79B30029AE57 /* PreviewProvider.swift in Sources */,
 				14E1BB7028EE9E610029AE57 /* BookmarkView.swift in Sources */,
 				14E1BAE428DD78740029AE57 /* PosterViewModel.swift in Sources */,
+				14E1BB9B28F51FFA0029AE57 /* WelcomeView.swift in Sources */,
 				14E1BB3628E409B20029AE57 /* GenreFinder.swift in Sources */,
 				14E1BB1E28E2888A0029AE57 /* BackdropView.swift in Sources */,
 				14E1BB3828E40DD70029AE57 /* Genre.swift in Sources */,

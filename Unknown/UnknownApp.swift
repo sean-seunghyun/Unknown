@@ -46,10 +46,10 @@ struct UnknownApp: App {
                 }
                 .accentColor(Color.theme.accent)
                 .onAppear {
-                    // 향후 init에서 처리
                     UITabBar.appearance().backgroundColor = UIColor(Color.theme.darkGray)
                     UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.gray)
-                    
+                    UINavigationBar.appearance().tintColor = UIColor(Color.theme.white)
+                    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor(Color.theme.white)]
             }
                 
             }

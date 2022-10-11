@@ -28,8 +28,8 @@ struct HomeView: View {
                     }, handleXButton: {
                         vm.searchText = ""
                     })
-                        .padding(.horizontal, 10)
-                        
+                    .padding(.horizontal, 10)
+                    
                     nowPlayingMovies
                     tabItemTitles
                         .padding(.bottom, 15)
@@ -77,7 +77,7 @@ extension HomeView{
 extension HomeView{
     
     private var headerTitle: some View{
-       
+        
         Text("What do you want to watch?")
             .foregroundColor(Color.theme.white)
             .bold()
@@ -90,14 +90,14 @@ extension HomeView{
             HStack(alignment: .top, spacing: 15){
                 ForEach(Array(vm.nowPlayingMovies.enumerated()), id: \.offset) { index, movie in
                     PosterView(movie: movie, posterStorage: .localFileManager)
-                            .frame(width: 160, height: 230)
-                            .overlay(
-                                RankNumberView(number: index+1)
-                                    .position(x: 20, y: 220)
-                                )
-                            .onTapGesture {
-                                segue(movie: movie)
-                            }
+                        .frame(width: 160, height: 230)
+                        .overlay(
+                            RankNumberView(number: index+1)
+                                .position(x: 20, y: 220)
+                        )
+                        .onTapGesture {
+                            segue(movie: movie)
+                        }
                 }
                 
             }
@@ -124,43 +124,61 @@ extension HomeView{
     
     private func tabItems() -> some View{
         
-           let columns: [GridItem] = [
-               GridItem(.flexible()),
-               GridItem(.flexible()),
-               GridItem(.flexible())
-           ]
+        let columns: [GridItem] = [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
         
         
         return LazyVGrid( columns: columns,
-                   alignment: .center,
-                   spacing: 20,
-                   pinnedViews: []){
+                          alignment: .center,
+                          spacing: 20,
+                          pinnedViews: []){
             
             switch vm.selectedMovieFilterTab{
             case .popular:
-                ForEach(vm.popularMovies) { movie in
-                    PosterView(movie: movie, posterStorage: .localFileManager)
-                        .frame(width: 110, height: 150)
-                        .onTapGesture {
-                            segue(movie: movie)
-                        }
+                
+                ForEach(Array(vm.popularMovies.enumerated()), id: \.offset) { index, movie in
+                    
+                    if index < vm.movieDisplayCount{
+                        
+                        PosterView(movie: movie, posterStorage: .localFileManager)
+                            .frame(width: 110, height: 150)
+                            .onTapGesture {
+                                segue(movie: movie)
+                            }
+                    }
+                    
                 }
                 
+                
             case .upcoming:
-                ForEach(vm.upcomingMovies) { movie in
-                    PosterView(movie: movie, posterStorage: .localFileManager)
-                        .frame(width: 110, height: 150)
-                        .onTapGesture {
-                            segue(movie: movie)
-                        }
+                ForEach(Array(vm.upcomingMovies.enumerated()), id: \.offset) { index, movie in
+                    
+                    if index < vm.movieDisplayCount{
+                        
+                        PosterView(movie: movie, posterStorage: .localFileManager)
+                            .frame(width: 110, height: 150)
+                            .onTapGesture {
+                                segue(movie: movie)
+                            }
+                    }
+                    
                 }
+                
             case .topRated:
-                ForEach(vm.topRatedMovies) { movie in
-                    PosterView(movie: movie, posterStorage: .localFileManager)
-                        .frame(width: 110, height: 150)
-                        .onTapGesture {
-                            segue(movie: movie)
-                        }
+                ForEach(Array(vm.topRatedMovies.enumerated()), id: \.offset) { index, movie in
+                    
+                    if index < vm.movieDisplayCount{
+                        
+                        PosterView(movie: movie, posterStorage: .localFileManager)
+                            .frame(width: 110, height: 150)
+                            .onTapGesture {
+                                segue(movie: movie)
+                            }
+                    }
+                    
                 }
                 
             }
@@ -168,5 +186,5 @@ extension HomeView{
             
         }
     }
-
+    
 }
