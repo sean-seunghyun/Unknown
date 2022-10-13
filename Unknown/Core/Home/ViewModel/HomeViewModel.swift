@@ -20,7 +20,7 @@ class HomeViewModel: ObservableObject{
     
     @Published var selectedMovieFilterTab:MovieFilterTab = .popular
     let movieFilterTabs:[MovieFilterTab] = [.popular, .upcoming, .topRated]
-
+    
     
     @Published var nowPlayingMovies:[Movie] = []
     @Published var upcomingMovies:[Movie] = []
@@ -28,16 +28,16 @@ class HomeViewModel: ObservableObject{
     @Published var topRatedMovies:[Movie] = []
     
     @Published var bookmarkedMovies:[Movie] = []
-
+    
     let nowPlayingMoviesDataService = NowPlayingMoviesDataService.instance
     let upcomingMoviesDataService = UpcomingMoviesDataService.instance
     let popularMoviesDataService = PopularMoviesDataService.instance
     let topRatedMoviesDataService = TopRatedMoviesDataService.instance
-
-
+    
+    
     let bookmarkCoreDataService = BookmarkCoreDataService.instance
     let movieSearchDataService = MovieSearchDataService.instance
-
+    
     @Published var selectedMovie: Movie? = nil
     @Published var showDetail: Bool = false
     
@@ -78,16 +78,75 @@ class HomeViewModel: ObservableObject{
             }
             .store(in: &cancellables)
         
+        
+        //original
+        //        bookmarkCoreDataService.$bookmarkedMovieEntities
+        //                .map (handleBookmarkedMovieEntity)
+        //                .map(handleMovieIDs)
+        //                .sink { _ in }
+        //                .store(in: &cancellables)
+        //
+        
+        
+        
+        //https://stackoverflow.com/questions/58675046/how-to-process-an-array-of-task-asynchronously-with-swift-combine
+        /*
+         let subscriber = Just(userIds)
+         .setFailureType(to: Error.self)
+         .flatMap { (values) -> Publishers.MergeMany<AnyPublisher<User, Error>> in
+         let tasks = values.map { (userId) -> AnyPublisher<User, Error> in
+         let requestURL = URL(string: "https://jsonplaceholder.typicode.com/users/\(userId)")!
+         
+         return URLSession.shared.dataTaskPublisher(for: requestURL)
+         .map { $0.data }
+         .decode(type: User.self, decoder: JSONDecoder())
+         .eraseToAnyPublisher()
+         }
+         return Publishers.MergeMany(tasks)
+         }.collect().sink(receiveCompletion: { (completion) in
+         if case .failure(let error) = completion {
+         print("Got error: \(error.localizedDescription)")
+         }
+         }) { (allUsers) in
+         print("Got users:")
+         allUsers.map { print("\($0)") }
+         }
+         */
         bookmarkCoreDataService.$bookmarkedMovieEntities
-                .map (handleBookmarkedMovieEntity)
-                .map(handleMovieIDs)
-                .sink { _ in }
-                .store(in: &cancellables)
+            .setFailureType(to: Error.self)
+            .map (handleBookmarkedMovieEntity)
+            .flatMap { (values) -> Publishers.MergeMany<AnyPublisher<Movie, Error>> in
+                let tasks = values.map { (movieId) -> AnyPublisher<Movie, Error> in
+                    let requestURL = URL(string: "https://api.themoviedb.org/3/movie/\(movieId)?api_key=\(Bundle.main.apiKey)&language=ko-KR")!
+                    
+                    return URLSession.shared.dataTaskPublisher(for: requestURL)
+                        .map { $0.data }
+                        .decode(type: Movie.self, decoder: JSONDecoder())
+                        .eraseToAnyPublisher()
+                }
+                self.bookmarkedMovies = []
+                return Publishers.MergeMany(tasks)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print("Got error: \(error.localizedDescription)")
+                }
+            } receiveValue: { returnedMovies in
+                self.bookmarkedMovies.append(returnedMovies)
+            }
+            .store(in: &cancellables)
+        
+        
+        
+        
+        
         
     }
     
     private func handleBookmarkedMovieEntity(movieEntites: [BookmarkedMovieEntity]) -> [Int]{
         let ids = movieEntites.map({Int($0.movieID)})
+        
         return ids
     }
     
@@ -103,5 +162,33 @@ class HomeViewModel: ObservableObject{
             }
         })
     }
+    
+    //    private func requestMovieForTest(id: Int){
+    //        let urlString = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Bundle.main.apiKey)&language=ko-KR"
+    //        guard let url = URL(string: urlString) else { return }
+    //
+    //        let publisher = URLSession.shared.dataTaskPublisher(for: url)
+    //           .receive(on: DispatchQueue.main)
+    //           .tryMap({ (data, response) -> Data in
+    //
+    //               self.bookmarkedMovies = []
+    //
+    //               guard
+    //                   let response = response as? HTTPURLResponse,
+    //                   response.statusCode >= 200 else {
+    //                   throw URLError(.badServerResponse)
+    //               }
+    //               return data
+    //           })
+    //           .decode(type: Movie.self, decoder: JSONDecoder())
+    //           .sink { completion in
+    //               print("completion: \(completion)")
+    //           } receiveValue: { movie in
+    //               print(movie.title)
+    //               self.bookmarkedMovies.append(movie)
+    //           }
+    //
+    //    }
+    
     
 }

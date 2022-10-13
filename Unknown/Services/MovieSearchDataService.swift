@@ -13,7 +13,7 @@ class MovieSearchDataService{
     @Published var searchedMovieList:MovieList? = nil
 
     private var movieSearchSubscription:AnyCancellable?
-    private var moiveSearchByIdSubscription: AnyCancellable?
+    private var moiveSearchByIdSubscription: AnyCancellable? //
     private var cancellables = Set<AnyCancellable>()
     
     static let instance = MovieSearchDataService()
@@ -65,6 +65,22 @@ class MovieSearchDataService{
 
         }
         .resume()
+    }
+    
+    func searchMovie(id: Int){
+        let urlString = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Bundle.main.apiKey)&language=ko-KR"
+        guard let url = URL(string: urlString) else { return }
+        
+        
+        moiveSearchByIdSubscription = NetworkingManager
+            .download(for: url)
+            .decode(type: Movie.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { receivedMovie in
+                print(receivedMovie.title)
+                self.movieSearchSubscription?.cancel()
+            })
+        
     }
 
     

@@ -27,7 +27,9 @@ struct BookmarkView: View {
                         }
                 }
             }
+            .padding(.top, 1)
         }
+        
         .background(
             NavigationLink(isActive: $vm.showDetail) {
                 if let selectedMovie = vm.selectedMovie {

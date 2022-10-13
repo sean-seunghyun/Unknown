@@ -36,6 +36,7 @@ struct HomeView: View {
                     
                     tabItems()
                         .padding(.horizontal)
+                        .padding(.bottom)
                 }
                 
             }
