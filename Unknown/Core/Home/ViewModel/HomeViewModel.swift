@@ -79,7 +79,7 @@ class HomeViewModel: ObservableObject{
             .store(in: &cancellables)
         
         
-        //original
+        // dataRequest using @escaping closure
         //        bookmarkCoreDataService.$bookmarkedMovieEntities
         //                .map (handleBookmarkedMovieEntity)
         //                .map(handleMovieIDs)
@@ -87,31 +87,7 @@ class HomeViewModel: ObservableObject{
         //                .store(in: &cancellables)
         //
         
-        
-        
-        //https://stackoverflow.com/questions/58675046/how-to-process-an-array-of-task-asynchronously-with-swift-combine
-        /*
-         let subscriber = Just(userIds)
-         .setFailureType(to: Error.self)
-         .flatMap { (values) -> Publishers.MergeMany<AnyPublisher<User, Error>> in
-         let tasks = values.map { (userId) -> AnyPublisher<User, Error> in
-         let requestURL = URL(string: "https://jsonplaceholder.typicode.com/users/\(userId)")!
-         
-         return URLSession.shared.dataTaskPublisher(for: requestURL)
-         .map { $0.data }
-         .decode(type: User.self, decoder: JSONDecoder())
-         .eraseToAnyPublisher()
-         }
-         return Publishers.MergeMany(tasks)
-         }.collect().sink(receiveCompletion: { (completion) in
-         if case .failure(let error) = completion {
-         print("Got error: \(error.localizedDescription)")
-         }
-         }) { (allUsers) in
-         print("Got users:")
-         allUsers.map { print("\($0)") }
-         }
-         */
+
         bookmarkCoreDataService.$bookmarkedMovieEntities
             .setFailureType(to: Error.self)
             .map (handleBookmarkedMovieEntity)
@@ -162,33 +138,6 @@ class HomeViewModel: ObservableObject{
             }
         })
     }
-    
-    //    private func requestMovieForTest(id: Int){
-    //        let urlString = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(Bundle.main.apiKey)&language=ko-KR"
-    //        guard let url = URL(string: urlString) else { return }
-    //
-    //        let publisher = URLSession.shared.dataTaskPublisher(for: url)
-    //           .receive(on: DispatchQueue.main)
-    //           .tryMap({ (data, response) -> Data in
-    //
-    //               self.bookmarkedMovies = []
-    //
-    //               guard
-    //                   let response = response as? HTTPURLResponse,
-    //                   response.statusCode >= 200 else {
-    //                   throw URLError(.badServerResponse)
-    //               }
-    //               return data
-    //           })
-    //           .decode(type: Movie.self, decoder: JSONDecoder())
-    //           .sink { completion in
-    //               print("completion: \(completion)")
-    //           } receiveValue: { movie in
-    //               print(movie.title)
-    //               self.bookmarkedMovies.append(movie)
-    //           }
-    //
-    //    }
     
     
 }

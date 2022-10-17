@@ -10,11 +10,7 @@ import SwiftUI
 struct LaunchView: View {
     
     @Binding var showLaunchView: Bool
-    let loadingString:[String] = "Loading...".map({String($0)})
-    let timer = Timer.publish(every: 0.1 , on: .main, in: .common).autoconnect()
-    @State var count: Int = 0
-    @State var loop: Int = 0
-    @State var showLoadingText: Bool = false
+    @StateObject var vm = LaunchViewModel()
     
     
     var body: some View {
@@ -22,14 +18,14 @@ struct LaunchView: View {
             Color.theme.background.ignoresSafeArea()
             logo
             ZStack{
-                if showLoadingText{
+                if vm.showLoadingText{
                     HStack(spacing: 0.5){
-                        ForEach(loadingString.indices, id: \.self) { index in
-                            Text(loadingString[index])
+                        ForEach(vm.loadingString.indices, id: \.self) { index in
+                            Text(vm.loadingString[index])
                                 .foregroundColor(Color.theme.white)
                                 .font(.headline)
                                 .bold()
-                                .offset(y: count == index ? -5 : 0)
+                                .offset(y: vm.count == index ? -5 : 0)
                         }
                     }
                     .transition(AnyTransition.scale.animation(.easeInOut))
@@ -40,21 +36,21 @@ struct LaunchView: View {
             .offset(y: 150)
         }
         .onAppear(perform: {
-            showLoadingText = true
+            vm.showLoadingText = true
         })
-        .onReceive(timer) { _ in
+        .onReceive(vm.timer) { _ in
 
                  //count와 관련한 애니메이션
                     withAnimation(.spring()){
-                        if count > loadingString.count{
-                            count = 0
-                            loop += 1
+                        if vm.count > vm.loadingString.count{
+                            vm.count = 0
+                            vm.loop += 1
                             
-                            if loop == 2{
+                            if vm.loop == 2{
                                 showLaunchView.toggle()
                             }
                         }else{
-                            count += 1
+                            vm.count += 1
                         }
                         
                     }

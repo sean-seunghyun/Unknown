@@ -65,6 +65,11 @@ class BookmarkCoreDataService{
         applyChanges()
     }
     
+    private func remove(entity: BookmarkedMovieEntity){
+        container.viewContext.delete(entity)
+        applyChanges()
+    }
+    
     private func saveData(){
         do{
             try container.viewContext.save()
@@ -79,9 +84,6 @@ class BookmarkCoreDataService{
     }
     
   
-    private func remove(entity: BookmarkedMovieEntity){
-        container.viewContext.delete(entity)
-        applyChanges()
-    }
+  
     
 }
